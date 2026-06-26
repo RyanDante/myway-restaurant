@@ -98,17 +98,22 @@ export function ModernHero() {
             viewBox="0 0 100 100"
             className="w-full h-full text-gold-500 fill-current"
           >
-            <path
+            {/* <path
               id="circlePath"
               d="M 50, 50 m -42, 0 a 42,42 0 1,1 84,0 a 42,42 0 1,1 -84,0"
               fill="transparent"
-            />
+            /> */}
             <text fontSize="8" fontWeight="bold" letterSpacing="0.5">
               <textPath href="#circlePath" startOffset="0%">
                 PREMIUM QUALITY • LUXURY DINING • MYWAY RESTAURANT •
               </textPath>
             </text>
-            <circle cx="50" cy="50" r="8" className="fill-background" />
+            <circle
+              cx="50"
+              cy="50"
+              r="4"
+              className="transparent translate-x-10"
+            />
           </svg>
         </div>
 
@@ -144,7 +149,8 @@ export function ModernHero() {
           </Link>
           <p className="text-neutral-400 text-sm md:text-base max-w-sm text-center md:text-left leading-relaxed">
             Immerse yourself in a world of exquisite flavors, where every dish
-            is an artisanal masterpiece crafted to elevate your dining experience.
+            is an artisanal masterpiece crafted to elevate your dining
+            experience.
           </p>
         </div>
       </div>
