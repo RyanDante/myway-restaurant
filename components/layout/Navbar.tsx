@@ -44,12 +44,11 @@ export function Navbar() {
           href="/"
           className="text-2xl font-serif font-bold tracking-[0.2em] text-white hover:text-gold-400 transition-colors duration-300 uppercase flex items-center justify-center"
         >
-          {RESTAURANT_INFO.name}
           <Image
             src="/images/logo.png"
             alt="Restaurant Logo"
-            width={100}
-            height={100}
+            width={150}
+            height={150}
             className="w-16 h-16 object-contain"
           />
         </Link>

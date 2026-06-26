@@ -2,6 +2,7 @@
 
 import React, { useRef } from "react";
 import gsap from "gsap";
+import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -60,7 +61,7 @@ export function FinalCTA() {
               d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
               fill="transparent"
             />
-            <text fontSize="8" fontWeight="bold" letterSpacing="2">
+            <text fontSize="9" fontWeight="bold" letterSpacing="1.5">
               <textPath href="#circlePathBottom" startOffset="0%">
                 JOIN US TODAY • EXPERIENCE MYWAY •
               </textPath>

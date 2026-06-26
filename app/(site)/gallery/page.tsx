@@ -1,45 +1,64 @@
-import React from 'react';
-import { GoldDivider } from '@/components/ui/GoldDivider';
-import { SectionLabel } from '@/components/ui/SectionLabel';
+import React from "react";
+import { GoldDivider } from "@/components/ui/GoldDivider";
+import { SectionLabel } from "@/components/ui/SectionLabel";
+import { video } from "framer-motion/client";
 
 export default function GalleryPage() {
   // Placeholder images using high-quality Unsplash URLs for food/restaurants
   const galleryItems = [
     {
       id: 1,
-      title: 'Fine Plating',
-      category: 'Food',
-      url: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=60',
+      title: "Fine Plating",
+      category: "Food",
+      url: "/images/fine_plating.jpg",
     },
     {
       id: 2,
-      title: 'Luxury Ambiance',
-      category: 'Interior',
-      url: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=60',
+      title: "Luxury Ambiance",
+      category: "Interior",
+      url: "/images/interior.png",
     },
     {
       id: 3,
-      title: 'Master Chef Selection',
-      category: 'Food',
-      url: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&auto=format&fit=crop&q=60',
+      title: "Master Chef Selection",
+      category: "Food",
+      url: "/images/masterchef.jpeg",
     },
     {
       id: 4,
-      title: 'The Lounge',
-      category: 'Interior',
-      url: 'https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=800&auto=format&fit=crop&q=60',
+      title: "The Lounge",
+      category: "Interior",
+      url: "/images/interior_lounge.jpeg",
     },
     {
       id: 5,
-      title: 'Wine Cellar',
-      category: 'Drinks',
-      url: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&auto=format&fit=crop&q=60',
+      title: "Wine Cellar",
+      category: "Drinks",
+      url: "/images/wine_cellar.jpeg",
     },
     {
       id: 6,
-      title: 'Signature Dessert',
-      category: 'Food',
-      url: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?w=800&auto=format&fit=crop&q=60',
+      title: "Signature Dessert",
+      category: "Food",
+      url: "/images/desert1.jpeg",
+    },
+    {
+      id: 7,
+      title: "Welcoming",
+      category: "exterior",
+      url: "/images/exterior.jpeg",
+    },
+    {
+      id: 8,
+      title: "Luxury Ambiance",
+      category: "drink",
+      url: "/images/cocktail_mix.jpeg",
+    },
+    {
+      id: 9,
+      title: "5 Star Chef",
+      category: "Chef",
+      url: "/images/chef.png",
     },
   ];
 

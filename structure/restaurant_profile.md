@@ -7,6 +7,7 @@ Business Type:
 Restaurant, Fast Food, Dessert Shop, Lounge
 
 Cuisine:
+
 - Cameroonian
 - International
 - Pizza
@@ -14,6 +15,7 @@ Cuisine:
 - Contemporary Cuisine
 
 Services:
+
 - Dine In
 - Take Away
 - Delivery
@@ -22,6 +24,7 @@ Services:
 - Birthday Celebrations
 
 Target Audience:
+
 - Students
 - Families
 - Professionals
@@ -29,6 +32,7 @@ Target Audience:
 - Couples
 
 Brand Personality:
+
 - Modern
 - Elegant
 - Welcoming
@@ -36,14 +40,14 @@ Brand Personality:
 - Youth Friendly
 
 Opening Hours:
-Sunday      -   12:00 AM - 1:00 AM
-                12:00 PM - 12:00 AM
-Monday      -   Closed
-Tuesday     -   12:00 PM - 12:00 AM
-Wednesday   -   12:00 PM - 12:00 AM
-Thursday    -   12:00 PM - 12:00 AM
-Friday      -   12:00 PM - 12:00 AM
-Saturday    -   12:00 PM - 12:00 AM
+Sunday - 12:00 AM - 1:00 AM
+12:00 PM - 12:00 AM
+Monday - Closed
+Tuesday - 12:00 PM - 12:00 AM
+Wednesday - 12:00 PM - 12:00 AM
+Thursday - 12:00 PM - 12:00 AM
+Friday - 12:00 PM - 12:00 AM
+Saturday - 12:00 PM - 12:00 AM
 
-COntact:
-+237 6 97 21 49 98
+Contact:
++237 6 51 37 18 00
