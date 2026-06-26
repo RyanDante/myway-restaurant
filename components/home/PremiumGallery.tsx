@@ -84,7 +84,7 @@ export function PremiumGallery() {
         {/* Left Text */}
         <div className="flex flex-col items-start pr-0 lg:pr-12">
           <h2 className="gallery-text text-5xl md:text-6xl font-black uppercase tracking-tighter text-white mb-8 leading-[0.9]">
-            A PREMIUM RESTAURANT IN THE HEART OF OUR CITY
+            A PREMIUM RESTAURANT IN THE HEART OF BUEA
           </h2>
           <p className="gallery-text text-neutral-400 text-base md:text-lg mb-10 max-w-md">
             Discover a luxurious ambiance designed for those who appreciate the
@@ -97,8 +97,8 @@ export function PremiumGallery() {
         </div>
 
         {/* Right Gallery (Split / Overlapping Images) */}
-        <div className="relative h-[600px] w-full mt-16 lg:mt-0">
-          <div className="gallery-img-1 absolute left-0 top-0 w-3/4 h-[400px] rounded-sm overflow-hidden border border-neutral-800 z-10 shadow-2xl">
+        <div className="relative h-150 w-full mt-16 lg:mt-0">
+          <div className="gallery-img-1 absolute left-0 top-0 w-3/4 h-100 rounded-sm overflow-hidden border border-neutral-800 z-10 shadow-2xl">
             <Image
               src="/images/interior.png"
               alt="Restaurant Ambiance"
@@ -106,7 +106,7 @@ export function PremiumGallery() {
               className="object-cover scale-110"
             />
           </div>
-          <div className="gallery-img-2 absolute right-0 bottom-0 w-3/5 h-[350px] rounded-sm overflow-hidden z-20 shadow-2xl">
+          <div className="gallery-img-2 absolute right-0 bottom-0 w-3/5 h-87.5 rounded-sm overflow-hidden z-20 shadow-2xl">
             <Image
               src="/images/hero.jpg"
               fill

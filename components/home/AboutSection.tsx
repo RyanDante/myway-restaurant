@@ -1,11 +1,9 @@
 "use client";
 
 import React, { useRef } from "react";
-import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Video } from "lucide-react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -70,14 +68,14 @@ export function AboutSection() {
             Your premium dining destination
           </p>
           <h2 className="about-text text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-tighter text-white max-w-5xl leading-[0.9]">
-            THE BEST CULINARY EXPERIENCE IN THE CITY
+            THE BEST CULINARY EXPERIENCE IN BUEA
           </h2>
         </div>
 
         {/* Parallax Image */}
         <div className="w-full h-[50vh] md:h-[70vh] relative overflow-hidden rounded-sm border border-neutral-800">
           <video
-            src="/videos/highlight.mp4"
+            src="/videos/highlight2.mp4"
             autoPlay
             loop
             muted
@@ -97,17 +95,17 @@ export function AboutSection() {
         {/* Stats Section */}
         <div className="stats-container w-full mt-24 flex flex-col md:flex-row justify-between items-center text-left gap-12 border-t border-neutral-800 pt-16">
           <p className="text-neutral-400 text-sm md:text-base max-w-sm leading-relaxed">
-            We source only the finest ingredients globally, combining classical
-            techniques with modern innovation to create unforgettable moments.
+            Known for its modern, stylish ambiance, the restaurant features a
+            mix of comfortable indoor seating and an outdoor terrace area.
           </p>
 
           <div className="flex gap-16">
             <div className="stat-box flex items-center gap-4">
               <span className="text-5xl md:text-6xl font-black text-white">
-                +1K
+                +50
               </span>
-              <span className="text-sm font-bold uppercase tracking-widest text-gold-500 max-w-[80px]">
-                Premium Wines
+              <span className="text-sm font-bold uppercase tracking-widest text-gold-500 max-w-20">
+                Menu Options
               </span>
             </div>
 
@@ -117,7 +115,7 @@ export function AboutSection() {
               <span className="text-5xl md:text-6xl font-black text-white">
                 100<span className="text-3xl">%</span>
               </span>
-              <span className="text-sm font-bold uppercase tracking-widest text-gold-500 max-w-[80px]">
+              <span className="text-sm font-bold uppercase tracking-widest text-gold-500 max-w-20">
                 Quality Foods
               </span>
             </div>

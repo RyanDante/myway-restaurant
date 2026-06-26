@@ -51,7 +51,7 @@ export function ShowcaseGrid() {
         {images.map((img, i) => (
           <div
             key={i}
-            className={`showcase-img relative w-full h-[400px] overflow-hidden ${i === 1 ? "md:-mt-12" : ""}`}
+            className={`showcase-img relative w-full h-100 overflow-hidden ${i === 1 ? "md:-mt-12" : ""}`}
           >
             <Image
               src={img.src}
@@ -60,7 +60,7 @@ export function ShowcaseGrid() {
               className="object-cover transition-transform duration-700 hover:scale-110"
             />
             {/* Dark gradient overlay for luxury feel */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-60" />
           </div>
         ))}
       </div>

@@ -1,7 +1,6 @@
 import React from "react";
 import { GoldDivider } from "@/components/ui/GoldDivider";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { video } from "framer-motion/client";
 
 export default function GalleryPage() {
   // Placeholder images using high-quality Unsplash URLs for food/restaurants
@@ -86,7 +85,7 @@ export default function GalleryPage() {
               style={{ backgroundImage: `url(${item.url})` }}
             />
             {/* Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-85 transition-opacity duration-300" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-85 transition-opacity duration-300" />
 
             {/* Meta */}
             <div className="relative z-10 p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">

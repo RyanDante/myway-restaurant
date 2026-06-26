@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { RESTAURANT_INFO } from "@/lib/constants";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -62,7 +61,7 @@ export function Navbar() {
               className="group relative text-sm font-medium tracking-widest text-neutral-300 hover:text-white transition-colors duration-300 uppercase"
             >
               {link.name}
-              <span className="absolute -bottom-2 left-1/2 w-0 h-[1px] bg-gold-500 group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out" />
+              <span className="absolute -bottom-2 left-1/2 w-0 h-px bg-gold-500 group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out" />
             </Link>
           ))}
           <Link

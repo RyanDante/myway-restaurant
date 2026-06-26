@@ -4,6 +4,7 @@ import { CategoryBar } from '@/components/home/CategoryBar';
 import { ShowcaseGrid } from '@/components/home/ShowcaseGrid';
 import { AboutSection } from '@/components/home/AboutSection';
 import { PremiumGallery } from '@/components/home/PremiumGallery';
+import { FAQSection } from '@/components/home/FAQSection';
 import { FinalCTA } from '@/components/home/FinalCTA';
 
 export default function HomePage() {
@@ -14,6 +15,7 @@ export default function HomePage() {
       <ShowcaseGrid />
       <AboutSection />
       <PremiumGallery />
+      <FAQSection />
       <FinalCTA />
     </div>
   );
