@@ -1,6 +1,6 @@
-import React from 'react';
-import Link from 'next/link';
-import { RESTAURANT_INFO } from '@/lib/constants';
+import React from "react";
+import Link from "next/link";
+import { RESTAURANT_INFO } from "@/lib/constants";
 
 export function Footer() {
   return (
@@ -31,6 +31,14 @@ export function Footer() {
             >
               Facebook
             </a>
+            <a
+              href={RESTAURANT_INFO.socials.tiktok}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-neutral-400 hover:text-gold-500 transition-colors text-sm"
+            >
+              Tiktok
+            </a>
           </div>
         </div>
 
@@ -40,7 +48,8 @@ export function Footer() {
             Hours & Location
           </h3>
           <div className="text-sm text-neutral-400 space-y-2 font-light">
-            <p>Mon - Fri: {RESTAURANT_INFO.hours.weekdays}</p>
+            <p>Mon: Closed</p>
+            <p>Tue - Fri: {RESTAURANT_INFO.hours.weekdays}</p>
             <p>Sat - Sun: {RESTAURANT_INFO.hours.weekends}</p>
             <p className="pt-2">{RESTAURANT_INFO.address}</p>
           </div>
@@ -55,7 +64,10 @@ export function Footer() {
             <p>Phone: {RESTAURANT_INFO.phone}</p>
             <p>Email: {RESTAURANT_INFO.email}</p>
             <p className="pt-2">
-              <Link href="/reservations" className="text-gold-500 hover:underline">
+              <Link
+                href="/reservations"
+                className="text-gold-500 hover:underline"
+              >
                 Book a table online
               </Link>
             </p>
@@ -64,10 +76,17 @@ export function Footer() {
       </div>
 
       <div className="max-w-7xl mx-auto border-t border-neutral-900 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-neutral-500 gap-4">
-        <p>&copy; {new Date().getFullYear()} {RESTAURANT_INFO.name}. All rights reserved.</p>
+        <p>
+          &copy; {new Date().getFullYear()} {RESTAURANT_INFO.name}. All rights
+          reserved.
+        </p>
         <div className="flex space-x-6">
-          <Link href="/privacy" className="hover:text-neutral-300">Privacy Policy</Link>
-          <Link href="/terms" className="hover:text-neutral-300">Terms of Service</Link>
+          <Link href="/privacy" className="hover:text-neutral-300">
+            Privacy Policy
+          </Link>
+          <Link href="/terms" className="hover:text-neutral-300">
+            Terms of Service
+          </Link>
         </div>
       </div>
     </footer>
