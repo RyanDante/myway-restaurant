@@ -85,6 +85,7 @@ export function ReservationForm() {
         time: RESERVATION_SLOTS[0],
         specialRequests: "",
       });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setSubmitStatus("error");
       setErrorMessage(err.message || "Something went wrong. Please try again.");
