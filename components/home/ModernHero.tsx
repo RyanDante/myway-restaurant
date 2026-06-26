@@ -172,7 +172,7 @@ export function ModernHero() {
         </div>
       </div>
 
-      <div className="absolute bottom-[25%] right-[1%] md:right-[10%] lg:right-[15%] z-25 float-card-2 pointer-events-none md:pointer-events-auto">
+      <div className="absolute bottom-[10%] right-[1%] md:right-[10%] lg:right-[15%] z-25 float-card-2 pointer-events-none md:pointer-events-auto">
         <div className="float-card-inner-2 px-5 py-3.5 rounded-2xl bg-black/40 border border-gold-500/20 backdrop-blur-md shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-center gap-3.5 transition-all duration-300 hover:border-gold-500/40 hover:bg-black/60">
           <div className="flex items-center justify-center w-10 h-10 rounded-full bg-emerald-500/10 text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.2)]">
             <Award className="w-5 h-5" />
@@ -236,7 +236,7 @@ export function ModernHero() {
         </div>
 
         {/* Bottom Description & CTA */}
-        <div className="mt-8 md:mt-16 w-full max-w-3xl flex flex-col md:flex-row items-center justify-between gap-12 md:gap-8 hero-fade">
+        <div className="mt-8 md:mt-16 w-full max-w-3xl flex flex-col md:flex-row items-center justify-center gap-12 md:gap-8 hero-fade">
           <Link
             href="/reservations"
             className="w-full sm:w-auto text-center bg-gold-500 hover:bg-gold-400 text-black px-8 py-4 md:px-10 md:py-5 rounded-full font-bold uppercase tracking-widest text-xs md:text-sm transition-all duration-300 hover:scale-105 shadow-[0_0_30px_rgba(197,168,55,0.3)] shrink-0"
