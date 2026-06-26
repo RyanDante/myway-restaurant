@@ -1,0 +1,55 @@
+DISCOVERY
+  Google Search / TikTok / Instagram / WhatsApp link
+          │
+          ▼
+    HOME PAGE  ◄──────────────────────────────────┐
+    ┌─────────────────────────────────────┐        │
+    │  Hero (full-screen, video/image)    │        │
+    │  → "Reserve a Table" CTA           │        │
+    │  → "View Menu" CTA                 │        │
+    │                                     │        │
+    │  Featured Dishes (3–4 hero items)  │        │
+    │  About teaser (2-line story)        │        │
+    │  Customer Testimonials carousel     │        │
+    │  Events / Occasions strip           │        │
+    │  Newsletter signup                  │        │
+    │  Footer + WhatsApp floating button │        │
+    └─────────────────────────────────────┘        │
+          │                                        │
+    ┌─────┴──────────────────────────────────┐     │
+    │                                        │     │
+    ▼                                        ▼     │
+  MENU PAGE                          RESERVATION PAGE
+  ┌─────────────┐                    ┌──────────────────┐
+  │ Categories  │                    │ Date + Time picker│
+  │ Pizza       │                    │ Name, Email, Phone│
+  │ Local       │                    │ Party size        │
+  │ International│                   │ Special requests  │
+  │ Desserts    │                    │ Submit            │
+  │ Drinks      │                    │ → Email confirm   │
+  │             │                    │ → WhatsApp option │
+  │ Floating    │                    └──────────────────┘
+  │ WhatsApp btn│
+  └─────────────┘
+          │
+    ┌─────┴──────────────────────────────────┐
+    │                                        │
+    ▼                                        ▼
+  GALLERY PAGE                        ABOUT PAGE
+  ┌──────────────┐                   ┌──────────────┐
+  │ Masonry grid │                   │ Story        │
+  │ Category tabs│                   │ Values       │
+  │ (Food/Vibes/ │                   │ Team (opt.)  │
+  │  Events)     │                   │ Location map │
+  └──────────────┘                   └──────────────┘
+                                            │
+                                            ▼
+                                      CONTACT PAGE
+                                      ┌──────────────┐
+                                      │ Form         │
+                                      │ Google Maps  │
+                                      │ Hours        │
+                                      │ WhatsApp btn │
+                                      └──────────────┘
+
+WhatsApp floating button appears on every page. It's the #1 conversion tool for this market.
