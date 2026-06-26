@@ -243,11 +243,6 @@ export function ModernHero() {
           >
             Book A Table
           </Link>
-          <p className="text-neutral-400 text-xs md:text-base max-w-xs md:max-w-sm text-center md:text-left leading-relaxed px-4 md:px-0">
-            Immerse yourself in a world of exquisite flavors, where every dish
-            is an artisanal masterpiece crafted to elevate your dining
-            experience.
-          </p>
         </div>
       </div>
     </section>
