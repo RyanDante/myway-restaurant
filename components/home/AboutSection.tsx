@@ -101,7 +101,7 @@ export function AboutSection() {
 
           <div className="flex gap-10">
             <div className="stat-box flex items-center gap-4">
-              <span className="text-5xl md:text-6xl font-black text-white">
+              <span className="text-4xl md:text-6xl font-black text-white">
                 +50
               </span>
               <span className="text-sm font-bold uppercase tracking-widest text-gold-500 max-w-20">
@@ -112,7 +112,7 @@ export function AboutSection() {
             <div className="w-px h-16 bg-neutral-800 hidden md:block"></div>
 
             <div className="stat-box flex items-center gap-4 ">
-              <span className="text-5xl md:text-6xl font-black text-white">
+              <span className="text-4xl md:text-6xl font-black text-white">
                 100<span className="text-3xl">%</span>
               </span>
               <span className="text-sm font-bold uppercase tracking-widest text-gold-500 max-w-20">

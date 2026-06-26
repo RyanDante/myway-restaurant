@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
+import Link from "next/link";
 import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -91,9 +92,12 @@ export function PremiumGallery() {
             finer things in life. Our elegant dining room sets the perfect stage
             for any occasion.
           </p>
-          <button className="gallery-text bg-gold-500 hover:bg-gold-400 text-black px-10 py-5 rounded-full font-bold uppercase tracking-widest text-sm transition-transform duration-300 hover:scale-105 shadow-xl">
+          <Link
+            href="/menu"
+            className="gallery-text translate-x-[10%] bg-gold-500 hover:bg-gold-400 text-black px-10 py-5 rounded-full font-bold uppercase tracking-widest text-sm transition-transform duration-300 hover:scale-105 shadow-xl cursor-pointer inline-block"
+          >
             Our Menu
-          </button>
+          </Link>
         </div>
 
         {/* Right Gallery (Split / Overlapping Images) */}
@@ -112,6 +116,14 @@ export function PremiumGallery() {
               fill
               alt="Chef cooking"
               className="object-contain scale-100"
+            />
+          </div>
+          <div className="gallery-img-3 absolute left-0 top-[70%] translate-x-[10%] w-3/4 h-100 rounded-sm overflow-hidden border border-neutral-800 z-10 shadow-2xl">
+            <Image
+              src="/images/interior3.jpg"
+              alt="Restaurant Ambiance"
+              fill
+              className="object-cover scale-110"
             />
           </div>
         </div>
