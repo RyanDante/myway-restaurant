@@ -99,7 +99,7 @@ export function AboutSection() {
             mix of comfortable indoor seating and an outdoor terrace area.
           </p>
 
-          <div className="flex gap-16">
+          <div className="flex gap-10">
             <div className="stat-box flex items-center gap-4">
               <span className="text-5xl md:text-6xl font-black text-white">
                 +50
@@ -111,7 +111,7 @@ export function AboutSection() {
 
             <div className="w-px h-16 bg-neutral-800 hidden md:block"></div>
 
-            <div className="stat-box flex items-center gap-4">
+            <div className="stat-box flex items-center gap-4 ">
               <span className="text-5xl md:text-6xl font-black text-white">
                 100<span className="text-3xl">%</span>
               </span>
