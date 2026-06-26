@@ -1,10 +1,11 @@
 export const RESTAURANT_INFO = {
   name: 'MyWay',
   tagline: 'A Symphony of Luxury and Taste',
-  address: '123 Avenue Montaigne, 75008 Paris, France',
-  phone: '+33 1 23 45 67 89',
-  email: 'contact@myway-restaurant.com',
-  whatsapp: 'https://wa.me/33123456789',
+  address: 'Molyko, UB Junction, Lacave Building, Buea, Cameroon',
+  phone: '+237 6 51 37 18 00',
+  // email: 'contact@myway-restaurant.com',
+  email: 'emperordante123@gmail.com',
+  whatsapp: 'https://wa.me/237651371800',
   hours: {
     weekdays: '12:00 PM - 11:00 PM',
     weekends: '12:00 PM - 12:00 AM',
@@ -12,6 +13,7 @@ export const RESTAURANT_INFO = {
   socials: {
     instagram: 'https://instagram.com/myway_restaurant',
     facebook: 'https://facebook.com/myway_restaurant',
+    tiktok: 'https://www.tiktok.com/@myway.restaurant',
     tripadvisor: 'https://tripadvisor.com/myway_restaurant',
   },
 };

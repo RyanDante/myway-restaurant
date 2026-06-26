@@ -1,10 +1,11 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { Menu, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { RESTAURANT_INFO } from '@/lib/constants';
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { RESTAURANT_INFO } from "@/lib/constants";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,16 +15,16 @@ export function Navbar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'Menu', href: '/menu' },
-    { name: 'Gallery', href: '/gallery' },
-    { name: 'About', href: '/about' },
-    { name: 'Contact', href: '/contact' },
+    { name: "Home", href: "/" },
+    { name: "Menu", href: "/menu" },
+    { name: "Gallery", href: "/gallery" },
+    { name: "About", href: "/about" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (
@@ -33,17 +34,24 @@ export function Navbar() {
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className={`fixed top-0 w-full z-50 transition-all duration-500 ${
         scrolled
-          ? 'bg-black/80 backdrop-blur-md border-b border-gold-500/20 py-3 shadow-2xl'
-          : 'bg-transparent py-6'
+          ? "bg-black/80 backdrop-blur-md border-b border-gold-500/20 py-3 shadow-2xl"
+          : "bg-transparent py-6"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         {/* Brand Logo */}
-        <Link 
-          href="/" 
-          className="text-2xl font-serif font-bold tracking-[0.2em] text-white hover:text-gold-400 transition-colors duration-300 uppercase"
+        <Link
+          href="/"
+          className="text-2xl font-serif font-bold tracking-[0.2em] text-white hover:text-gold-400 transition-colors duration-300 uppercase flex items-center justify-center"
         >
           {RESTAURANT_INFO.name}
+          <Image
+            src="/images/logo.png"
+            alt="Restaurant Logo"
+            width={100}
+            height={100}
+            className="w-16 h-16 object-contain"
+          />
         </Link>
 
         {/* Desktop Nav Links */}
@@ -104,7 +112,7 @@ export function Navbar() {
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: '100vh' }}
+            animate={{ opacity: 1, height: "100vh" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="md:hidden absolute top-0 left-0 w-full bg-neutral-950 flex flex-col items-center justify-center space-y-8 overflow-hidden"

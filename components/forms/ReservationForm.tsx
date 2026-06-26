@@ -1,30 +1,38 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { RESERVATION_SLOTS } from '@/lib/constants';
-import { reservationSchema, type ReservationInput } from '@/lib/validations';
+import React, { useState } from "react";
+import { RESERVATION_SLOTS } from "@/lib/constants";
+import { reservationSchema, type ReservationInput } from "@/lib/validations";
 
 export function ReservationForm() {
   const [formData, setFormData] = useState<ReservationInput>({
-    name: '',
-    email: '',
-    phone: '',
+    name: "",
+    email: "",
+    phone: "",
     guests: 2,
-    date: '',
+    date: "",
     time: RESERVATION_SLOTS[0],
-    specialRequests: '',
+    specialRequests: "",
   });
 
-  const [errors, setErrors] = useState<Partial<Record<keyof ReservationInput, string>>>({});
+  const [errors, setErrors] = useState<
+    Partial<Record<keyof ReservationInput, string>>
+  >({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: name === 'guests' ? parseInt(value, 10) || 1 : value,
+      [name]: name === "guests" ? parseInt(value, 10) || 1 : value,
     }));
     // Clear errors as user edits
     if (errors[name as keyof ReservationInput]) {
@@ -35,7 +43,7 @@ export function ReservationForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setSubmitStatus('idle');
+    setSubmitStatus("idle");
     setErrors({});
 
     // Validate using Zod schema
@@ -53,33 +61,33 @@ export function ReservationForm() {
     }
 
     try {
-      const response = await fetch('/api/reservations', {
-        method: 'POST',
+      const response = await fetch("/api/reservations", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(result.data),
       });
 
       if (!response.ok) {
         const errData = await response.json();
-        throw new Error(errData.error || 'Failed to submit reservation');
+        throw new Error(errData.error || "Failed to submit reservation");
       }
 
-      setSubmitStatus('success');
+      setSubmitStatus("success");
       // Reset form
       setFormData({
-        name: '',
-        email: '',
-        phone: '',
+        name: "",
+        email: "",
+        phone: "",
         guests: 2,
-        date: '',
+        date: "",
         time: RESERVATION_SLOTS[0],
-        specialRequests: '',
+        specialRequests: "",
       });
     } catch (err: any) {
-      setSubmitStatus('error');
-      setErrorMessage(err.message || 'Something went wrong. Please try again.');
+      setSubmitStatus("error");
+      setErrorMessage(err.message || "Something went wrong. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -91,13 +99,13 @@ export function ReservationForm() {
         Table Reservation
       </h3>
 
-      {submitStatus === 'success' && (
+      {submitStatus === "success" && (
         <div className="mb-6 p-4 bg-emerald-950/50 border border-emerald-500/30 text-emerald-300 rounded text-sm text-center">
           Thank you! Your reservation request has been submitted successfully.
         </div>
       )}
 
-      {submitStatus === 'error' && (
+      {submitStatus === "error" && (
         <div className="mb-6 p-4 bg-rose-950/50 border border-rose-500/30 text-rose-300 rounded text-sm text-center">
           {errorMessage}
         </div>
@@ -106,7 +114,10 @@ export function ReservationForm() {
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Name */}
         <div>
-          <label htmlFor="name" className="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-1">
+          <label
+            htmlFor="name"
+            className="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-1"
+          >
             Full Name
           </label>
           <input
@@ -119,13 +130,18 @@ export function ReservationForm() {
             placeholder="John Doe"
             required
           />
-          {errors.name && <p className="text-xs text-rose-400 mt-1">{errors.name}</p>}
+          {errors.name && (
+            <p className="text-xs text-rose-400 mt-1">{errors.name}</p>
+          )}
         </div>
 
         {/* Email & Phone */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="email" className="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-1">
+            <label
+              htmlFor="email"
+              className="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-1"
+            >
               Email Address
             </label>
             <input
@@ -138,11 +154,16 @@ export function ReservationForm() {
               placeholder="johndoe@example.com"
               required
             />
-            {errors.email && <p className="text-xs text-rose-400 mt-1">{errors.email}</p>}
+            {errors.email && (
+              <p className="text-xs text-rose-400 mt-1">{errors.email}</p>
+            )}
           </div>
 
           <div>
-            <label htmlFor="phone" className="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-1">
+            <label
+              htmlFor="phone"
+              className="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-1"
+            >
               Phone Number
             </label>
             <input
@@ -152,17 +173,22 @@ export function ReservationForm() {
               value={formData.phone}
               onChange={handleChange}
               className="w-full bg-black/50 border border-neutral-800 focus:border-gold-500 text-white rounded px-4 py-2.5 outline-none transition-colors text-sm"
-              placeholder="+33 6 12 34 56 78"
+              placeholder="+237 6 12 34 56 78"
               required
             />
-            {errors.phone && <p className="text-xs text-rose-400 mt-1">{errors.phone}</p>}
+            {errors.phone && (
+              <p className="text-xs text-rose-400 mt-1">{errors.phone}</p>
+            )}
           </div>
         </div>
 
         {/* Guests, Date & Time */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
-            <label htmlFor="guests" className="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-1">
+            <label
+              htmlFor="guests"
+              className="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-1"
+            >
               Guests
             </label>
             <input
@@ -176,11 +202,16 @@ export function ReservationForm() {
               className="w-full bg-black/50 border border-neutral-800 focus:border-gold-500 text-white rounded px-4 py-2.5 outline-none transition-colors text-sm"
               required
             />
-            {errors.guests && <p className="text-xs text-rose-400 mt-1">{errors.guests}</p>}
+            {errors.guests && (
+              <p className="text-xs text-rose-400 mt-1">{errors.guests}</p>
+            )}
           </div>
 
           <div>
-            <label htmlFor="date" className="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-1">
+            <label
+              htmlFor="date"
+              className="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-1"
+            >
               Date
             </label>
             <input
@@ -192,11 +223,16 @@ export function ReservationForm() {
               className="w-full bg-black/50 border border-neutral-800 focus:border-gold-500 text-white rounded px-4 py-2.5 outline-none transition-colors text-sm"
               required
             />
-            {errors.date && <p className="text-xs text-rose-400 mt-1">{errors.date}</p>}
+            {errors.date && (
+              <p className="text-xs text-rose-400 mt-1">{errors.date}</p>
+            )}
           </div>
 
           <div>
-            <label htmlFor="time" className="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-1">
+            <label
+              htmlFor="time"
+              className="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-1"
+            >
               Time
             </label>
             <select
@@ -213,13 +249,18 @@ export function ReservationForm() {
                 </option>
               ))}
             </select>
-            {errors.time && <p className="text-xs text-rose-400 mt-1">{errors.time}</p>}
+            {errors.time && (
+              <p className="text-xs text-rose-400 mt-1">{errors.time}</p>
+            )}
           </div>
         </div>
 
         {/* Special Requests */}
         <div>
-          <label htmlFor="specialRequests" className="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-1">
+          <label
+            htmlFor="specialRequests"
+            className="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-1"
+          >
             Special Requests (Optional)
           </label>
           <textarea
@@ -231,7 +272,11 @@ export function ReservationForm() {
             className="w-full bg-black/50 border border-neutral-800 focus:border-gold-500 text-white rounded px-4 py-2.5 outline-none transition-colors text-sm resize-none"
             placeholder="E.g., vegetarian diet, window table, anniversary celebrations..."
           />
-          {errors.specialRequests && <p className="text-xs text-rose-400 mt-1">{errors.specialRequests}</p>}
+          {errors.specialRequests && (
+            <p className="text-xs text-rose-400 mt-1">
+              {errors.specialRequests}
+            </p>
+          )}
         </div>
 
         {/* Submit */}
@@ -240,7 +285,7 @@ export function ReservationForm() {
           disabled={isSubmitting}
           className="w-full bg-gold-500 hover:bg-gold-600 disabled:bg-neutral-800 text-black py-3 rounded font-semibold text-xs tracking-widest uppercase transition-colors"
         >
-          {isSubmitting ? 'Submitting...' : 'Confirm Reservation'}
+          {isSubmitting ? "Submitting..." : "Confirm Reservation"}
         </button>
       </form>
     </div>

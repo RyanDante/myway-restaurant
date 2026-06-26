@@ -83,7 +83,7 @@ export function PremiumGallery() {
             A PREMIUM RESTAURANT IN THE HEART OF OUR CITY
           </h2>
           <p className="gallery-text text-neutral-400 text-base md:text-lg mb-10 max-w-md">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Discover a luxurious ambiance designed for those who appreciate the finer things in life. Our elegant dining room sets the perfect stage for any occasion.
           </p>
           <button className="gallery-text bg-gold-500 hover:bg-gold-400 text-black px-10 py-5 rounded-full font-bold uppercase tracking-widest text-sm transition-transform duration-300 hover:scale-105 shadow-xl">
             Our Menu
