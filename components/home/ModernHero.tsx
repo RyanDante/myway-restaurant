@@ -6,7 +6,7 @@ import Link from "next/link";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Star, Award } from "lucide-react";
+import { FaStar, FaAward} from "react-icons/fa";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -159,7 +159,7 @@ export function ModernHero() {
       <div className="absolute top-[12%] left-[3%] md:left-[10%] lg:left-[15%] z-25 float-card-1 pointer-events-none md:pointer-events-auto">
         <div className="float-card-inner-1 px-5 py-3.5 rounded-2xl bg-black/40 border border-gold-500/20 backdrop-blur-md shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-center gap-3.5 transition-all duration-300 hover:border-gold-500/40 hover:bg-black/60">
           <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gold-500/10 text-gold-500 shadow-[0_0_15px_rgba(197,168,55,0.2)]">
-            <Star className="w-5 h-5 fill-current" />
+             <FaStar color="#ffc107" size={30} />
           </div>
           <div>
             <div className="text-white font-black text-sm tracking-wide">
@@ -175,7 +175,7 @@ export function ModernHero() {
       <div className="absolute bottom-[10%] right-[1%] md:right-[10%] lg:right-[15%] z-25 float-card-2 pointer-events-none md:pointer-events-auto">
         <div className="float-card-inner-2 px-5 py-3.5 rounded-2xl bg-black/40 border border-gold-500/20 backdrop-blur-md shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-center gap-3.5 transition-all duration-300 hover:border-gold-500/40 hover:bg-black/60">
           <div className="flex items-center justify-center w-10 h-10 rounded-full bg-emerald-500/10 text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.2)]">
-            <Award className="w-5 h-5" />
+              <FaAward color="#10b981" size={30} />
           </div>
           <div>
             <div className="text-white font-black text-sm tracking-wide">

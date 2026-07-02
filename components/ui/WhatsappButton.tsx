@@ -1,5 +1,5 @@
 import React from 'react';
-import { MessageCircle } from 'lucide-react';
+import { FaWhatsapp } from 'react-icons/fa6';
 import { RESTAURANT_INFO } from '@/lib/constants';
 
 interface WhatsappButtonProps {
@@ -15,7 +15,7 @@ export function WhatsappButton({ className = '' }: WhatsappButtonProps) {
       aria-label="Chat on WhatsApp"
       className={`fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-3.5 rounded-full shadow-lg hover:bg-[#20ba5a] transition-all duration-300 hover:scale-110 flex items-center justify-center ${className}`}
     >
-      <MessageCircle className="w-6 h-6 fill-current" />
+       <FaWhatsapp className="w-8 h-8 text-white" />
     </a>
   );
 }

@@ -2,6 +2,7 @@
 
 import React, { useRef } from "react";
 import gsap from "gsap";
+import { FaArrowRight } from "react-icons/fa";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -86,7 +87,7 @@ export function AboutSection() {
             <button className="bg-gold-500 hover:bg-gold-400 text-black px-8 py-4 rounded-full font-bold uppercase tracking-widest text-sm transition-transform duration-300 hover:scale-105 shadow-xl flex items-center gap-3">
               About Us
               <span className="w-6 h-6 bg-white rounded-full flex items-center justify-center text-black text-xs font-serif italic">
-                i
+                <FaArrowRight />
               </span>
             </button>
           </div>
