@@ -119,6 +119,7 @@ export function PremiumGallery() {
             src="/videos/showcase2.webm"
             autoPlay
             loop
+            muted
             className="absolute inset-0 w-full h-full object-cover"
           />
         </div>
