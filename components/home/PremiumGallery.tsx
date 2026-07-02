@@ -101,31 +101,26 @@ export function PremiumGallery() {
         </div>
 
         {/* Right Gallery (Split / Overlapping Images) */}
-        <div className="relative h-150 w-full mt-16 lg:mt-0">
-          <div className="gallery-img-1 absolute left-0 top-0 w-3/4 h-100 rounded-sm overflow-hidden border border-neutral-800 z-10 shadow-2xl">
-            <Image
-              src="/images/interior.png"
-              alt="Restaurant Ambiance"
-              fill
-              className="object-cover scale-110"
-            />
-          </div>
-          <div className="gallery-img-2 absolute right-0 bottom-0 w-3/5 h-87.5 rounded-sm overflow-hidden z-20 shadow-2xl">
-            <Image
-              src="/images/hero.jpg"
-              fill
-              alt="Chef cooking"
-              className="object-contain scale-100"
-            />
-          </div>
-          <div className="gallery-img-3 absolute left-0 top-[70%] translate-x-[10%] w-3/4 h-100 rounded-sm overflow-hidden border border-neutral-800 z-10 shadow-2xl">
-            <Image
-              src="/images/interior3.jpg"
-              alt="Restaurant Ambiance"
-              fill
-              className="object-cover scale-110"
-            />
-          </div>
+        <div
+          className="
+            relative
+            w-full
+            h-[250px]
+            sm:h-[350px]
+            md:h-[450px]
+            lg:h-[600px]
+            mt-16
+            lg:mt-0
+            overflow-hidden
+            rounded-2xl       
+          "
+        >
+          <video
+            src="/videos/showcase2.webm"
+            autoPlay
+            loop
+            className="absolute inset-0 w-full h-full object-cover"
+          />
         </div>
       </div>
     </section>
