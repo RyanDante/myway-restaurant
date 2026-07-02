@@ -13,7 +13,7 @@ if (typeof window !== "undefined") {
 const images = [
   { src: "/images/steak.png", alt: "Chef preparing dish" },
   {
-    src: "/images/cocktail.jpg",
+    src: "/images/twin_cocktail.jpg",
     alt: "Gourmet meal",
   },
   {

@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { FaInstagram,FaFacebook, FaTiktok } from 'react-icons/fa';
 import { RESTAURANT_INFO } from "@/lib/constants";
 
 export function Footer() {
@@ -21,7 +22,7 @@ export function Footer() {
               rel="noopener noreferrer"
               className="text-neutral-400 hover:text-gold-500 transition-colors text-sm"
             >
-              Instagram
+              <FaInstagram className="w-5 h-5" />
             </a>
             <a
               href={RESTAURANT_INFO.socials.facebook}
@@ -29,7 +30,7 @@ export function Footer() {
               rel="noopener noreferrer"
               className="text-neutral-400 hover:text-gold-500 transition-colors text-sm"
             >
-              Facebook
+              <FaFacebook className="w-5 h-5" />
             </a>
             <a
               href={RESTAURANT_INFO.socials.tiktok}
@@ -37,7 +38,7 @@ export function Footer() {
               rel="noopener noreferrer"
               className="text-neutral-400 hover:text-gold-500 transition-colors text-sm"
             >
-              Tiktok
+             <FaTiktok className="w-5 h-5" />
             </a>
           </div>
         </div>
