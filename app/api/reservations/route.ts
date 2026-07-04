@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { ID } from "appwrite";
 import { databases } from "@/lib/appwrite";
 import { reservationSchema } from "@/lib/validations";
+import { sendReservationEmail } from "@/lib/resend";
 
 const databaseId = process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID;
 const collectionId =
@@ -21,6 +22,11 @@ export async function POST(request: Request) {
     }
 
     const reservationData = validation.data;
+
+    // Dispatch email confirmation using Resend API asynchronously
+    sendReservationEmail(reservationData).catch((err) =>
+      console.error('Failed to send reservation email confirmation:', err)
+    );
 
     // Check if Appwrite database config is present
     if (
