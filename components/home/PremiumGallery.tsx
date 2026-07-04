@@ -2,10 +2,11 @@
 
 import React, { useRef } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { getCloudinaryVideoUrl } from "@/lib/cloudinary";
+import { OptimizedVideo } from "@/components/ui/OptimizedVideo";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -79,9 +80,9 @@ export function PremiumGallery() {
   return (
     <section
       ref={container}
-      className="w-full bg-background py-32 overflow-hidden"
+      className="w-full bg-background gap-2 py-32 overflow-hidden "
     >
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 items-center">
         {/* Left Text */}
         <div className="flex flex-col items-start pr-0 lg:pr-12">
           <h2 className="gallery-text text-5xl md:text-6xl font-black uppercase tracking-tighter text-white mb-8 leading-[0.9]">
@@ -105,22 +106,21 @@ export function PremiumGallery() {
           className="
             relative
             w-full
-            h-[250px]
-            sm:h-[350px]
-            md:h-[450px]
-            lg:h-[600px]
+            h-[350px]
+            sm:h-[450px]
+            md:h-[550px]
+            lg:h-[700px]
             mt-16
             lg:mt-0
             overflow-hidden
-            rounded-2xl       
+            rounded-2xl
+            px-10
           "
         >
-          <video
-            src="/videos/showcase2.webm"
-            autoPlay
-            loop
-            muted
-            className="absolute inset-0 w-full h-full object-cover"
+          <OptimizedVideo
+            src={getCloudinaryVideoUrl("showcase2")}
+            containerClassName="absolute inset-0"
+            className="w-full h-full object-cover"
           />
         </div>
       </div>

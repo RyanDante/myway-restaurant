@@ -2,9 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { getCloudinaryImageUrl } from "@/lib/cloudinary";
+import { OptimizedImage } from "@/components/ui/OptimizedImage";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -43,12 +44,14 @@ export function Navbar() {
           href="/"
           className="text-2xl font-serif font-bold tracking-[0.2em] text-white hover:text-gold-400 transition-colors duration-300 uppercase flex items-center justify-center"
         >
-          <Image
-            src="/images/logo.png"
+          <OptimizedImage
+            src={getCloudinaryImageUrl("logo")}
             alt="Restaurant Logo"
             width={150}
             height={150}
-            className="w-16 h-16 object-contain"
+            containerClassName="w-16 h-16"
+            className="object-contain"
+            priority
           />
         </Link>
 

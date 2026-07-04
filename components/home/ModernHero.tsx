@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useRef } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FaStar, FaAward} from "react-icons/fa";
+import { OptimizedImage } from "@/components/ui/OptimizedImage";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -136,20 +136,24 @@ export function ModernHero() {
       {/* Side floating images */}
       <div className="absolute left-0 top-1/4 -translate-x-1/2 float-img hidden md:block">
         <div className="relative w-64 h-64 rounded-full overflow-hidden border-8 border-background shadow-2xl">
-          <Image
+          <OptimizedImage
             src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=400"
             alt="Gourmet"
             fill
+            sizes="256px"
+            containerClassName="absolute inset-0"
             className="object-cover"
           />
         </div>
       </div>
       <div className="absolute right-0 top-1/3 translate-x-1/3 float-img hidden md:block">
         <div className="relative w-72 h-72 rounded-full overflow-hidden border-8 border-background shadow-2xl">
-          <Image
+          <OptimizedImage
             src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&q=80&w=400"
             alt="Gourmet"
             fill
+            sizes="288px"
+            containerClassName="absolute inset-0"
             className="object-cover"
           />
         </div>
