@@ -1,63 +1,66 @@
+"use client";
+
 import React from "react";
 import { GoldDivider } from "@/components/ui/GoldDivider";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { getCloudinaryImageUrl } from "@/lib/cloudinary";
+import { OptimizedImage } from "@/components/ui/OptimizedImage";
 
 export default function GalleryPage() {
-  // Placeholder images using high-quality Unsplash URLs for food/restaurants
   const galleryItems = [
     {
       id: 1,
       title: "Fine Plating",
       category: "Food",
-      url: "/images/fine_plating.jpg",
+      url: getCloudinaryImageUrl("fine_plating"),
     },
     {
       id: 2,
       title: "Luxury Ambiance",
       category: "Interior",
-      url: "/images/interior.png",
+      url: getCloudinaryImageUrl("interior"),
     },
     {
       id: 3,
       title: "Master Chef Selection",
       category: "Food",
-      url: "/images/masterchef.jpeg",
+      url: getCloudinaryImageUrl("masterchef"),
     },
     {
       id: 4,
       title: "The Lounge",
       category: "Interior",
-      url: "/images/interior_lounge.jpeg",
+      url: getCloudinaryImageUrl("interior_lounge"),
     },
     {
       id: 5,
       title: "Wine Cellar",
       category: "Drinks",
-      url: "/images/wine_cellar.jpeg",
+      url: getCloudinaryImageUrl("wine_cellar"),
     },
     {
       id: 6,
       title: "Signature Dessert",
       category: "Food",
-      url: "/images/desert1.jpeg",
+      url: getCloudinaryImageUrl("desert1"),
     },
     {
       id: 7,
       title: "Welcoming",
       category: "exterior",
-      url: "/images/exterior.jpeg",
+      url: getCloudinaryImageUrl("exterior"),
     },
     {
       id: 8,
       title: "Luxury Ambiance",
       category: "drink",
-      url: "/images/cocktail_mix.jpeg",
+      url: getCloudinaryImageUrl("cocktail_mix"),
     },
     {
       id: 9,
       title: "5 Star Chef",
       category: "Chef",
-      url: "/images/chef.png",
+      url: getCloudinaryImageUrl("chef"),
     },
   ];
 
@@ -79,16 +82,21 @@ export default function GalleryPage() {
             key={item.id}
             className="group relative overflow-hidden bg-neutral-900 border border-neutral-800 aspect-video md:aspect-square flex flex-col justify-end"
           >
-            {/* Image Placeholder */}
-            <div
-              className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
-              style={{ backgroundImage: `url(${item.url})` }}
+            {/* Optimized Image with skeleton */}
+            <OptimizedImage
+              src={item.url}
+              alt={item.title}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+              containerClassName="absolute inset-0"
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
+
             {/* Overlay */}
-            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-85 transition-opacity duration-300" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-85 transition-opacity duration-300 z-[1]" />
 
             {/* Meta */}
-            <div className="relative z-10 p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+            <div className="relative z-[2] p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
               <span className="text-[10px] text-gold-500 uppercase tracking-widest font-semibold">
                 {item.category}
               </span>

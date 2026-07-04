@@ -5,6 +5,7 @@ import { ShowcaseGrid } from '@/components/home/ShowcaseGrid';
 import { AboutSection } from '@/components/home/AboutSection';
 import { PremiumGallery } from '@/components/home/PremiumGallery';
 import { FAQSection } from '@/components/home/FAQSection';
+import { Testimonials } from '@/components/home/Testimonials';
 import { FinalCTA } from '@/components/home/FinalCTA';
 
 export default function HomePage() {
@@ -16,6 +17,7 @@ export default function HomePage() {
       <AboutSection />
       <PremiumGallery />
       <FAQSection />
+      <Testimonials />
       <FinalCTA />
     </div>
   );

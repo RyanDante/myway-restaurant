@@ -1,23 +1,24 @@
 "use client";
 
 import React, { useRef } from "react";
-import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { getCloudinaryImageUrl } from "@/lib/cloudinary";
+import { OptimizedImage } from "@/components/ui/OptimizedImage";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP, ScrollTrigger);
 }
 
 const images = [
-  { src: "/images/steak.png", alt: "Chef preparing dish" },
+  { src: getCloudinaryImageUrl("steak"), alt: "Chef preparing dish" },
   {
-    src: "/images/twin_cocktail.jpg",
+    src: getCloudinaryImageUrl("twin_cocktail"),
     alt: "Gourmet meal",
   },
   {
-    src: "/images/salmon.png",
+    src: getCloudinaryImageUrl("salmon"),
     alt: "Fine dining plate",
   },
 ];
@@ -53,14 +54,16 @@ export function ShowcaseGrid() {
             key={i}
             className={`showcase-img relative w-full h-100 overflow-hidden ${i === 1 ? "md:-mt-12" : ""}`}
           >
-            <Image
+            <OptimizedImage
               src={img.src}
               alt={img.alt}
               fill
+              sizes="(max-width: 768px) 100vw, 33vw"
+              containerClassName="absolute inset-0"
               className="object-cover transition-transform duration-700 hover:scale-110"
             />
             {/* Dark gradient overlay for luxury feel */}
-            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-60" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-60 z-[1]" />
           </div>
         ))}
       </div>

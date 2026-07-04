@@ -5,6 +5,8 @@ import gsap from "gsap";
 import { FaArrowRight } from "react-icons/fa";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { getCloudinaryVideoUrl } from "@/lib/cloudinary";
+import { OptimizedVideo } from "@/components/ui/OptimizedVideo";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -75,12 +77,10 @@ export function AboutSection() {
 
         {/* Parallax Image */}
         <div className="w-full h-[50vh] md:h-[70vh] relative overflow-hidden rounded-sm border border-neutral-800">
-          <video
-            src="/videos/highlight2.mp4"
-            autoPlay
-            loop
-            muted
-            className="absolute inset-0 w-full h-full object-cover scale-100"
+          <OptimizedVideo
+            src={getCloudinaryVideoUrl("highlight2")}
+            containerClassName="absolute inset-0"
+            className="w-full h-full object-cover scale-100"
           />
           {/* Button overlaid on image */}
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
