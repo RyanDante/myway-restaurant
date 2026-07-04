@@ -9,6 +9,7 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 import { X, MessageSquare, Calendar } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { FaWhatsapp } from "react-icons/fa";
 
 interface MenuListProps {
   filteredMenu: MenuItem[];
@@ -65,7 +66,10 @@ export function MenuList({
 
             {/* Grid layout */}
             {viewMode === "grid" ? (
-              <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              <motion.div
+                layout
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+              >
                 {itemsInCategory.map((item) => (
                   <motion.div
                     layout
@@ -268,7 +272,7 @@ export function MenuList({
                     rel="noopener noreferrer"
                     className="flex-1 flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold uppercase tracking-wider py-3.5 rounded-xl shadow-lg hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer"
                   >
-                    <MessageSquare className="w-4 h-4" />
+                    <FaWhatsapp className="w-8 h-8 text-white pl-3" />
                     {currentLang === "en"
                       ? "Order on WhatsApp"
                       : "Commander sur WhatsApp"}
