@@ -6,9 +6,10 @@ import { getCloudinaryImageUrl } from "@/lib/cloudinary";
 import { OptimizedImage } from "@/components/ui/OptimizedImage";
 import { GoldDivider } from "@/components/ui/GoldDivider";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { X, MessageSquare, Calendar } from "lucide-react";
+import { X, Calendar } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { FaWhatsapp } from "react-icons/fa";
 
 interface MenuListProps {
   filteredMenu: MenuItem[];
@@ -25,7 +26,6 @@ export function MenuList({
   categoryLabels,
   currentLang,
   viewMode,
-  noItemsText,
 }: MenuListProps) {
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
 
@@ -65,7 +65,10 @@ export function MenuList({
 
             {/* Grid layout */}
             {viewMode === "grid" ? (
-              <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              <motion.div
+                layout
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+              >
                 {itemsInCategory.map((item) => (
                   <motion.div
                     layout
@@ -145,7 +148,7 @@ export function MenuList({
                         <h3 className="text-sm sm:text-base font-bold text-white group-hover:text-gold-500 transition-colors duration-300 truncate pr-4">
                           {currentLang === "en" ? item.nameEn : item.nameFr}
                         </h3>
-                        <div className="hidden sm:block border-b border-dotted border-neutral-800 flex-1 mx-4 h-[1px]" />
+                        <div className="hidden sm:block border-b border-dotted border-neutral-800 flex-1 mx-4 h-px" />
                         <span className="text-xs sm:text-sm font-bold text-gold-500 font-mono shrink-0">
                           {item.price.toLocaleString()} XOF
                         </span>
@@ -207,7 +210,7 @@ export function MenuList({
               </button>
 
               {/* Large Image container */}
-              <div className="w-full md:w-1/2 aspect-[4/3] md:aspect-auto relative bg-neutral-900">
+              <div className="w-full md:w-1/2 aspect-4/3 md:aspect-auto relative bg-neutral-900">
                 <OptimizedImage
                   src={getCloudinaryImageUrl(selectedItem.image || "logo")}
                   alt={
@@ -268,7 +271,7 @@ export function MenuList({
                     rel="noopener noreferrer"
                     className="flex-1 flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold uppercase tracking-wider py-3.5 rounded-xl shadow-lg hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer"
                   >
-                    <MessageSquare className="w-4 h-4" />
+                    <FaWhatsapp className="w-8 h-8 text-white pl-3" />
                     {currentLang === "en"
                       ? "Order on WhatsApp"
                       : "Commander sur WhatsApp"}

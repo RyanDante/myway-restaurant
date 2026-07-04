@@ -8,7 +8,10 @@ interface SkeletonProps {
   variant?: "rectangular" | "circular";
 }
 
-export function Skeleton({ className = "", variant = "rectangular" }: SkeletonProps) {
+export function Skeleton({
+  className = "",
+  variant = "rectangular",
+}: SkeletonProps) {
   return (
     <div
       className={cn(
@@ -25,7 +28,7 @@ export function ImageSkeleton({ className = "" }: { className?: string }) {
     <div className={cn("relative overflow-hidden", className)}>
       <Skeleton className="absolute inset-0 w-full h-full" />
       {/* Shimmer overlay */}
-      <div className="absolute inset-0 -translate-x-full animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-white/5 to-transparent" />
+      <div className="absolute inset-0 -translate-x-full animate-[shimmer_2s_infinite] bg-linear-to-r from-transparent via-white/5 to-transparent" />
     </div>
   );
 }
@@ -40,7 +43,7 @@ export function VideoSkeleton({ className = "" }: { className?: string }) {
           <div className="w-0 h-0 border-t-8 border-b-8 border-l-12 border-t-transparent border-b-transparent border-l-neutral-500/50 ml-1" />
         </div>
       </div>
-      <div className="absolute inset-0 -translate-x-full animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-white/5 to-transparent" />
+      <div className="absolute inset-0 -translate-x-full animate-[shimmer_2s_infinite] bg-linear-to-r from-transparent via-white/5 to-transparent" />
     </div>
   );
 }

@@ -20,7 +20,7 @@ export default function AdminLayout({
 
           <nav className="flex flex-col space-y-2">
             <Link
-              href="/dashboard"
+              href="/admin"
               className="text-sm text-neutral-300 hover:text-white px-4 py-2 hover:bg-neutral-900 transition-all"
             >
               Dashboard

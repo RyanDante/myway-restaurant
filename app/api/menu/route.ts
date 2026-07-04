@@ -1,33 +1,75 @@
-import { NextResponse } from 'next/server';
-import { databases } from '@/lib/appwrite';
-import { FALLBACK_MENU } from '@/lib/constants';
-
-const databaseId = process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID;
-const collectionId = process.env.NEXT_PUBLIC_APPWRITE_MENU_COLLECTION_ID;
+import { NextResponse } from "next/server";
+import { db, isFirebaseConfigured } from "@/lib/firebase";
+import { collection, getDocs, doc, setDoc } from "firebase/firestore";
+import { FALLBACK_MENU } from "@/lib/constants";
 
 export async function GET() {
   try {
-    // If Appwrite configuration is placeholder, use static fallback menu
-    if (
-      !databaseId ||
-      !collectionId ||
-      databaseId.includes('placeholder') ||
-      collectionId.includes('placeholder')
-    ) {
-      return NextResponse.json({ source: 'fallback', data: FALLBACK_MENU });
+    if (!isFirebaseConfigured || !db) {
+      console.warn("Firebase configuration is not set up. Serving fallback constants.");
+      return NextResponse.json({ source: "fallback", data: FALLBACK_MENU });
     }
 
-    const response = await databases.listDocuments(databaseId, collectionId);
+    const querySnapshot = await getDocs(collection(db, "menu"));
     
-    // If database is empty, return static fallback menu
-    if (response.documents.length === 0) {
-      return NextResponse.json({ source: 'fallback', data: FALLBACK_MENU });
+    if (querySnapshot.empty) {
+      console.warn("Firebase Firestore 'menu' collection is empty. Serving fallback constants.");
+      return NextResponse.json({ source: "fallback", data: FALLBACK_MENU });
     }
 
-    return NextResponse.json({ source: 'appwrite', data: response.documents });
+    const menuItems = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    return NextResponse.json({ source: "firebase", data: menuItems });
   } catch (error: any) {
-    console.error('Error fetching menu items:', error);
-    // Graceful fallback to static menu in case of network/database failure
-    return NextResponse.json({ source: 'fallback-on-error', data: FALLBACK_MENU });
+    console.error("Failed to query menu from Firebase Firestore:", error);
+    return NextResponse.json({ source: "fallback-on-error", data: FALLBACK_MENU });
+  }
+}
+
+export async function POST(req: Request) {
+  try {
+    if (!isFirebaseConfigured || !db) {
+      return NextResponse.json({ error: "Firebase not configured" }, { status: 500 });
+    }
+
+    // Verify Passkey
+    const authHeader = req.headers.get("Authorization");
+    const passkey = authHeader?.replace("Bearer ", "").trim();
+    if (passkey !== process.env.ADMIN_PASSKEY) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const body = await req.json();
+    const { nameEn, nameFr, descriptionEn, descriptionFr, price, category, image, dietary, featured } = body;
+
+    if (!nameEn || !price || !category) {
+      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+    }
+
+    // Generate a URL-safe ID if not provided
+    const docId = body.id || nameEn.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+
+    const newItem = {
+      id: docId,
+      nameEn,
+      nameFr: nameFr || nameEn,
+      descriptionEn: descriptionEn || "",
+      descriptionFr: descriptionFr || "",
+      price: Number(price),
+      category,
+      image: image || "",
+      dietary: dietary || [],
+      featured: !!featured,
+    };
+
+    await setDoc(doc(db, "menu", docId), newItem);
+
+    return NextResponse.json({ success: true, data: newItem });
+  } catch (error: any) {
+    console.error("Failed to add menu item:", error);
+    return NextResponse.json({ error: error.message || "Internal server error" }, { status: 500 });
   }
 }
