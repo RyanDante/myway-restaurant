@@ -93,10 +93,10 @@ export default function GalleryPage() {
             />
 
             {/* Overlay */}
-            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-85 transition-opacity duration-300 z-[1]" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-85 transition-opacity duration-300 z-1" />
 
             {/* Meta */}
-            <div className="relative z-[2] p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+            <div className="relative z-2 p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
               <span className="text-[10px] text-gold-500 uppercase tracking-widest font-semibold">
                 {item.category}
               </span>

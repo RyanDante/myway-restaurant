@@ -6,17 +6,22 @@ export interface Reservation {
   guests: number;
   date: string;
   time: string;
-  specialRequests?: string;
+  preorderedFood?: string;
+  preorderType?: string;
+  guestOrders?: string;
   createdAt: string;
   status: 'pending' | 'confirmed' | 'cancelled';
 }
 
 export interface MenuItem {
   id: string;
-  name: string;
-  description: string;
+  nameEn: string;
+  nameFr: string;
+  descriptionEn: string;
+  descriptionFr: string;
   price: number;
-  category: 'starters' | 'mains' | 'desserts' | 'drinks' | 'wines';
+  category: string;
+  image?: string;
   dietary?: string[];
   featured?: boolean;
 }
