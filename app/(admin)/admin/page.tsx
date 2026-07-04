@@ -14,13 +14,12 @@ import {
   LogOut,
   Check,
   X,
-  Globe,
   RefreshCw,
   AlertTriangle,
   ChevronRight,
   TrendingUp,
   Clock,
-  Eye
+  Eye,
 } from "lucide-react";
 import { MenuItem } from "@/lib/constants";
 
@@ -32,7 +31,9 @@ export default function AdminDashboard() {
   const [isLoadingAuth, setIsLoadingAuth] = useState(false);
 
   // Tab State
-  const [activeTab, setActiveTab] = useState<"analytics" | "menu" | "reservations" | "settings">("analytics");
+  const [activeTab, setActiveTab] = useState<
+    "analytics" | "menu" | "reservations" | "settings"
+  >("analytics");
 
   // Menu catalog state
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
@@ -43,7 +44,9 @@ export default function AdminDashboard() {
   // Reservation requests state
   const [reservations, setReservations] = useState<any[]>([]);
   const [loadingReservations, setLoadingReservations] = useState(false);
-  const [selectedReservation, setSelectedReservation] = useState<any | null>(null);
+  const [selectedReservation, setSelectedReservation] = useState<any | null>(
+    null,
+  );
 
   // Add/Edit Modals
   const [isMenuModalOpen, setIsMenuModalOpen] = useState(false);
@@ -89,7 +92,7 @@ export default function AdminDashboard() {
     { key: "wines_champagne", label: "Wines & Champagne" },
     { key: "non_alcoholic_beverages", label: "Non-Alcoholic" },
     { key: "beers", label: "Beers" },
-    { key: "spirits_liqueurs", label: "Spirits & Liqueurs" }
+    { key: "spirits_liqueurs", label: "Spirits & Liqueurs" },
   ];
 
   // Load auth state from session
@@ -156,6 +159,7 @@ export default function AdminDashboard() {
       } else {
         setAuthError(data.error || "Incorrect admin credentials.");
       }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
       setAuthError("Failed to authenticate with backend.");
     } finally {
@@ -204,7 +208,10 @@ export default function AdminDashboard() {
 
   // Add tag to dietary list
   const addDietaryTag = () => {
-    if (formDietaryInput.trim() && !formDietary.includes(formDietaryInput.trim())) {
+    if (
+      formDietaryInput.trim() &&
+      !formDietary.includes(formDietaryInput.trim())
+    ) {
       setFormDietary([...formDietary, formDietaryInput.trim()]);
       setFormDietaryInput("");
     }
@@ -271,7 +278,12 @@ export default function AdminDashboard() {
 
   // Delete Menu Item
   const handleDeleteMenuItem = async (id: string) => {
-    if (!confirm("Are you sure you want to permanently delete this menu item from Firestore?")) return;
+    if (
+      !confirm(
+        "Are you sure you want to permanently delete this menu item from Firestore?",
+      )
+    )
+      return;
 
     const token = localStorage.getItem("admin_token") || "";
     try {
@@ -294,7 +306,10 @@ export default function AdminDashboard() {
   };
 
   // Update Reservation Status
-  const handleUpdateReservationStatus = async (id: string, newStatus: string) => {
+  const handleUpdateReservationStatus = async (
+    id: string,
+    newStatus: string,
+  ) => {
     const token = localStorage.getItem("admin_token") || "";
     try {
       const res = await fetch(`/api/reservations/${id}`, {
@@ -309,10 +324,20 @@ export default function AdminDashboard() {
       const data = await res.json();
       if (res.ok && data.success) {
         setReservations((prev) =>
-          prev.map((resv) => (resv.id === id || resv.$id === id ? { ...resv, status: newStatus } : resv))
+          prev.map((resv) =>
+            resv.id === id || resv.$id === id
+              ? { ...resv, status: newStatus }
+              : resv,
+          ),
         );
-        if (selectedReservation && (selectedReservation.id === id || selectedReservation.$id === id)) {
-          setSelectedReservation((prev: any) => ({ ...prev, status: newStatus }));
+        if (
+          selectedReservation &&
+          (selectedReservation.id === id || selectedReservation.$id === id)
+        ) {
+          setSelectedReservation((prev: any) => ({
+            ...prev,
+            status: newStatus,
+          }));
         }
       } else {
         alert(data.error || "Failed to update reservation status.");
@@ -324,7 +349,12 @@ export default function AdminDashboard() {
 
   // Delete Reservation Document Record
   const handleDeleteReservation = async (id: string) => {
-    if (!confirm("Are you sure you want to permanently delete this reservation request?")) return;
+    if (
+      !confirm(
+        "Are you sure you want to permanently delete this reservation request?",
+      )
+    )
+      return;
 
     const token = localStorage.getItem("admin_token") || "";
     try {
@@ -337,7 +367,9 @@ export default function AdminDashboard() {
 
       const data = await res.json();
       if (res.ok && data.success) {
-        setReservations((prev) => prev.filter((resv) => resv.id !== id && resv.$id !== id));
+        setReservations((prev) =>
+          prev.filter((resv) => resv.id !== id && resv.$id !== id),
+        );
       } else {
         alert(data.error || "Failed to delete reservation.");
       }
@@ -359,15 +391,21 @@ export default function AdminDashboard() {
       item.nameEn.toLowerCase().includes(menuSearch.toLowerCase()) ||
       item.nameFr.toLowerCase().includes(menuSearch.toLowerCase()) ||
       item.category.toLowerCase().includes(menuSearch.toLowerCase());
-    const matchesCategory = selectedCategoryFilter === "all" || item.category === selectedCategoryFilter;
+    const matchesCategory =
+      selectedCategoryFilter === "all" ||
+      item.category === selectedCategoryFilter;
     return matchesSearch && matchesCategory;
   });
 
   // Calculate stats summary
   const totalItems = menuItems.length;
   const featuredItemsCount = menuItems.filter((i) => i.featured).length;
-  const pendingBookings = reservations.filter((r) => r.status === "pending" || !r.status).length;
-  const confirmedBookings = reservations.filter((r) => r.status === "confirmed").length;
+  const pendingBookings = reservations.filter(
+    (r) => r.status === "pending" || !r.status,
+  ).length;
+  const confirmedBookings = reservations.filter(
+    (r) => r.status === "confirmed",
+  ).length;
 
   if (!isAuthenticated) {
     return (
@@ -406,7 +444,7 @@ export default function AdminDashboard() {
 
             {authError && (
               <div className="flex items-center gap-2 bg-red-950/20 border border-red-900/50 text-red-500 text-xs py-3 px-4 rounded-xl">
-                <AlertTriangle className="w-4 h-4 flex-shrink-0" />
+                <AlertTriangle className="w-4 h-4 shrink-0" />
                 <span>{authError}</span>
               </div>
             )}
@@ -513,24 +551,36 @@ export default function AdminDashboard() {
                   Daily Visitor Traffic
                   <TrendingUp className="w-3.5 h-3.5 text-emerald-500" />
                 </p>
-                <p className="text-3xl font-extrabold text-gold-500 mt-2">492</p>
-                <p className="text-[10px] text-neutral-500 mt-1 font-light">+12.4% increase from last week</p>
+                <p className="text-3xl font-extrabold text-gold-500 mt-2">
+                  492
+                </p>
+                <p className="text-[10px] text-neutral-500 mt-1 font-light">
+                  +12.4% increase from last week
+                </p>
               </div>
               <div className="bg-neutral-950/80 border border-neutral-900 p-6 rounded-2xl shadow-md">
                 <p className="text-[10px] text-neutral-400 uppercase tracking-widest font-semibold flex items-center justify-between">
                   Pending Reservations
                   <Clock className="w-3.5 h-3.5 text-yellow-500 animate-pulse" />
                 </p>
-                <p className="text-3xl font-extrabold text-white mt-2">{pendingBookings}</p>
-                <p className="text-[10px] text-neutral-500 mt-1 font-light">Requires manual operator review</p>
+                <p className="text-3xl font-extrabold text-white mt-2">
+                  {pendingBookings}
+                </p>
+                <p className="text-[10px] text-neutral-500 mt-1 font-light">
+                  Requires manual operator review
+                </p>
               </div>
               <div className="bg-neutral-950/80 border border-neutral-900 p-6 rounded-2xl shadow-md">
                 <p className="text-[10px] text-neutral-400 uppercase tracking-widest font-semibold flex items-center justify-between">
                   Active Firestore Menu
                   <UtensilsCrossed className="w-3.5 h-3.5 text-gold-500" />
                 </p>
-                <p className="text-3xl font-extrabold text-gold-500 mt-2">{totalItems}</p>
-                <p className="text-[10px] text-neutral-500 mt-1 font-light">{featuredItemsCount} featured chef specials</p>
+                <p className="text-3xl font-extrabold text-gold-500 mt-2">
+                  {totalItems}
+                </p>
+                <p className="text-[10px] text-neutral-500 mt-1 font-light">
+                  {featuredItemsCount} featured chef specials
+                </p>
               </div>
               <div className="bg-neutral-950/80 border border-neutral-900 p-6 rounded-2xl shadow-md">
                 <p className="text-[10px] text-neutral-400 uppercase tracking-widest font-semibold flex items-center justify-between">
@@ -538,7 +588,9 @@ export default function AdminDashboard() {
                   <Calendar className="w-3.5 h-3.5 text-blue-500" />
                 </p>
                 <p className="text-3xl font-extrabold text-white mt-2">8.2</p>
-                <p className="text-[10px] text-neutral-500 mt-1 font-light">64% conversion on pre-orders</p>
+                <p className="text-[10px] text-neutral-500 mt-1 font-light">
+                  64% conversion on pre-orders
+                </p>
               </div>
             </div>
 
@@ -555,11 +607,39 @@ export default function AdminDashboard() {
                 </div>
                 {/* SVG Graph Drawing */}
                 <div className="h-64 w-full relative pt-2">
-                  <svg className="w-full h-full" viewBox="0 0 700 220" preserveAspectRatio="none">
+                  <svg
+                    className="w-full h-full"
+                    viewBox="0 0 700 220"
+                    preserveAspectRatio="none"
+                  >
                     {/* Grid lines */}
-                    <line x1="0" y1="50" x2="700" y2="50" stroke="#1f1f1f" strokeWidth="1" strokeDasharray="5,5" />
-                    <line x1="0" y1="110" x2="700" y2="110" stroke="#1f1f1f" strokeWidth="1" strokeDasharray="5,5" />
-                    <line x1="0" y1="170" x2="700" y2="170" stroke="#1f1f1f" strokeWidth="1" strokeDasharray="5,5" />
+                    <line
+                      x1="0"
+                      y1="50"
+                      x2="700"
+                      y2="50"
+                      stroke="#1f1f1f"
+                      strokeWidth="1"
+                      strokeDasharray="5,5"
+                    />
+                    <line
+                      x1="0"
+                      y1="110"
+                      x2="700"
+                      y2="110"
+                      stroke="#1f1f1f"
+                      strokeWidth="1"
+                      strokeDasharray="5,5"
+                    />
+                    <line
+                      x1="0"
+                      y1="170"
+                      x2="700"
+                      y2="170"
+                      stroke="#1f1f1f"
+                      strokeWidth="1"
+                      strokeDasharray="5,5"
+                    />
 
                     {/* Shaded Area under line */}
                     <path
@@ -570,9 +650,19 @@ export default function AdminDashboard() {
 
                     {/* Gradient Definition */}
                     <defs>
-                      <linearGradient id="goldGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <linearGradient
+                        id="goldGradient"
+                        x1="0%"
+                        y1="0%"
+                        x2="0%"
+                        y2="100%"
+                      >
                         <stop offset="0%" stopColor="#d4af37" />
-                        <stop offset="100%" stopColor="#d4af37" stopOpacity="0" />
+                        <stop
+                          offset="100%"
+                          stopColor="#d4af37"
+                          stopOpacity="0"
+                        />
                       </linearGradient>
                     </defs>
 
@@ -585,13 +675,62 @@ export default function AdminDashboard() {
                     />
 
                     {/* Dots */}
-                    <circle cx="50" cy="170" r="5" fill="#000" stroke="#d4af37" strokeWidth="2" />
-                    <circle cx="150" cy="120" r="5" fill="#000" stroke="#d4af37" strokeWidth="2" />
-                    <circle cx="250" cy="100" r="5" fill="#000" stroke="#d4af37" strokeWidth="2" />
-                    <circle cx="350" cy="90" r="5" fill="#000" stroke="#d4af37" strokeWidth="2" />
-                    <circle cx="450" cy="60" r="5" fill="#000" stroke="#d4af37" strokeWidth="2" />
-                    <circle cx="550" cy="115" r="5" fill="#000" stroke="#d4af37" strokeWidth="2" />
-                    <circle cx="650" cy="120" r="5" fill="#000" stroke="#d4af37" strokeWidth="2" />
+                    <circle
+                      cx="50"
+                      cy="170"
+                      r="5"
+                      fill="#000"
+                      stroke="#d4af37"
+                      strokeWidth="2"
+                    />
+                    <circle
+                      cx="150"
+                      cy="120"
+                      r="5"
+                      fill="#000"
+                      stroke="#d4af37"
+                      strokeWidth="2"
+                    />
+                    <circle
+                      cx="250"
+                      cy="100"
+                      r="5"
+                      fill="#000"
+                      stroke="#d4af37"
+                      strokeWidth="2"
+                    />
+                    <circle
+                      cx="350"
+                      cy="90"
+                      r="5"
+                      fill="#000"
+                      stroke="#d4af37"
+                      strokeWidth="2"
+                    />
+                    <circle
+                      cx="450"
+                      cy="60"
+                      r="5"
+                      fill="#000"
+                      stroke="#d4af37"
+                      strokeWidth="2"
+                    />
+                    <circle
+                      cx="550"
+                      cy="115"
+                      r="5"
+                      fill="#000"
+                      stroke="#d4af37"
+                      strokeWidth="2"
+                    />
+                    <circle
+                      cx="650"
+                      cy="120"
+                      r="5"
+                      fill="#000"
+                      stroke="#d4af37"
+                      strokeWidth="2"
+                    />
                   </svg>
                   <div className="flex justify-between text-[10px] text-neutral-500 font-semibold px-4 pt-2">
                     <span>Mon</span>
@@ -618,7 +757,10 @@ export default function AdminDashboard() {
                         <span className="text-gold-500 font-bold">38%</span>
                       </div>
                       <div className="w-full bg-neutral-900 h-2 rounded-full overflow-hidden">
-                        <div className="bg-gold-500 h-full rounded-full" style={{ width: "38%" }} />
+                        <div
+                          className="bg-gold-500 h-full rounded-full"
+                          style={{ width: "38%" }}
+                        />
                       </div>
                     </div>
                     <div>
@@ -627,7 +769,10 @@ export default function AdminDashboard() {
                         <span className="text-gold-500 font-bold">28%</span>
                       </div>
                       <div className="w-full bg-neutral-900 h-2 rounded-full overflow-hidden">
-                        <div className="bg-gold-500 h-full rounded-full" style={{ width: "28%" }} />
+                        <div
+                          className="bg-gold-500 h-full rounded-full"
+                          style={{ width: "28%" }}
+                        />
                       </div>
                     </div>
                     <div>
@@ -636,7 +781,10 @@ export default function AdminDashboard() {
                         <span className="text-gold-500 font-bold">22%</span>
                       </div>
                       <div className="w-full bg-neutral-900 h-2 rounded-full overflow-hidden">
-                        <div className="bg-gold-500 h-full rounded-full" style={{ width: "22%" }} />
+                        <div
+                          className="bg-gold-500 h-full rounded-full"
+                          style={{ width: "22%" }}
+                        />
                       </div>
                     </div>
                     <div>
@@ -645,7 +793,10 @@ export default function AdminDashboard() {
                         <span className="text-gold-500 font-bold">12%</span>
                       </div>
                       <div className="w-full bg-neutral-900 h-2 rounded-full overflow-hidden">
-                        <div className="bg-gold-500 h-full rounded-full" style={{ width: "12%" }} />
+                        <div
+                          className="bg-gold-500 h-full rounded-full"
+                          style={{ width: "12%" }}
+                        />
                       </div>
                     </div>
                   </div>
@@ -711,7 +862,9 @@ export default function AdminDashboard() {
               {loadingMenu ? (
                 <div className="bg-neutral-950/80 border border-neutral-900 rounded-2xl py-20 text-center flex flex-col items-center gap-3">
                   <RefreshCw className="w-8 h-8 text-gold-500 animate-spin" />
-                  <p className="text-sm text-neutral-500 font-light">Loading Firestore menu documents...</p>
+                  <p className="text-sm text-neutral-500 font-light">
+                    Loading Firestore menu documents...
+                  </p>
                 </div>
               ) : filteredMenuItems.length === 0 ? (
                 <div className="bg-neutral-950/80 border border-neutral-900 rounded-2xl py-20 text-center text-neutral-500 italic font-light">
@@ -737,13 +890,16 @@ export default function AdminDashboard() {
                               alt={item.nameEn}
                               className="w-full h-full object-cover group-hover:scale-105 transition-all duration-500"
                               onError={(e) => {
-                                (e.target as HTMLElement).style.display = "none";
+                                (e.target as HTMLElement).style.display =
+                                  "none";
                               }}
                             />
                           ) : (
                             <div className="text-neutral-700 flex flex-col items-center gap-2">
                               <UtensilsCrossed className="w-8 h-8" />
-                              <span className="text-[10px] uppercase tracking-wider font-light">No Image Set</span>
+                              <span className="text-[10px] uppercase tracking-wider font-light">
+                                No Image Set
+                              </span>
                             </div>
                           )}
 
@@ -756,7 +912,8 @@ export default function AdminDashboard() {
 
                           {/* Category Badge */}
                           <span className="absolute bottom-3 right-3 bg-black/75 backdrop-blur-sm text-neutral-300 text-[9px] font-bold uppercase tracking-wider py-1 px-2.5 rounded-md border border-neutral-800">
-                            {categories.find((c) => c.key === item.category)?.label || item.category}
+                            {categories.find((c) => c.key === item.category)
+                              ?.label || item.category}
                           </span>
                         </div>
 
@@ -775,7 +932,7 @@ export default function AdminDashboard() {
                             )}
 
                             {/* Description preview */}
-                            {(item.descriptionEn || item.descriptionFr) ? (
+                            {item.descriptionEn || item.descriptionFr ? (
                               <p className="text-xs text-neutral-400 font-light line-clamp-2 mt-2 leading-relaxed">
                                 {item.descriptionEn || item.descriptionFr}
                               </p>
@@ -855,7 +1012,9 @@ export default function AdminDashboard() {
               {loadingReservations ? (
                 <div className="py-20 text-center flex flex-col items-center gap-3">
                   <RefreshCw className="w-8 h-8 text-gold-500 animate-spin" />
-                  <p className="text-sm text-neutral-500 font-light">Loading database booking records...</p>
+                  <p className="text-sm text-neutral-500 font-light">
+                    Loading database booking records...
+                  </p>
                 </div>
               ) : reservations.length === 0 ? (
                 <div className="py-20 text-center text-neutral-500 italic font-light">
@@ -883,17 +1042,34 @@ export default function AdminDashboard() {
                           : null;
 
                         return (
-                          <tr key={resv.$id || resv.id} className="hover:bg-neutral-900/30 transition-all">
+                          <tr
+                            key={resv.$id || resv.id}
+                            className="hover:bg-neutral-900/30 transition-all"
+                          >
                             <td className="py-4 px-6">
-                              <div className="font-semibold text-white">{resv.name}</div>
-                              <div className="text-xs text-neutral-500 mt-0.5">{resv.phone}</div>
-                              {resv.email && <div className="text-xs text-neutral-500 font-light">{resv.email}</div>}
+                              <div className="font-semibold text-white">
+                                {resv.name}
+                              </div>
+                              <div className="text-xs text-neutral-500 mt-0.5">
+                                {resv.phone}
+                              </div>
+                              {resv.email && (
+                                <div className="text-xs text-neutral-500 font-light">
+                                  {resv.email}
+                                </div>
+                              )}
                             </td>
                             <td className="py-4 px-6">
-                              <div className="text-white font-medium">{resv.date}</div>
-                              <div className="text-xs text-neutral-500 mt-0.5">{resv.time}</div>
+                              <div className="text-white font-medium">
+                                {resv.date}
+                              </div>
+                              <div className="text-xs text-neutral-500 mt-0.5">
+                                {resv.time}
+                              </div>
                             </td>
-                            <td className="py-4 px-6 text-center text-white font-bold">{resv.guests}</td>
+                            <td className="py-4 px-6 text-center text-white font-bold">
+                              {resv.guests}
+                            </td>
                             <td className="py-4 px-6">
                               {resv.preorderedFood ? (
                                 <div className="space-y-1">
@@ -902,7 +1078,9 @@ export default function AdminDashboard() {
                                   </div>
                                   {guestOrdersParsed && (
                                     <button
-                                      onClick={() => setSelectedReservation(resv)}
+                                      onClick={() =>
+                                        setSelectedReservation(resv)
+                                      }
                                       className="text-[10px] bg-neutral-900 hover:bg-neutral-800 text-neutral-400 hover:text-white px-2 py-1 rounded border border-neutral-850 flex items-center gap-1 transition-all cursor-pointer"
                                     >
                                       <Eye className="w-3 h-3" />
@@ -911,7 +1089,9 @@ export default function AdminDashboard() {
                                   )}
                                 </div>
                               ) : (
-                                <span className="text-neutral-600 text-xs italic font-light">None</span>
+                                <span className="text-neutral-600 text-xs italic font-light">
+                                  None
+                                </span>
                               )}
                             </td>
                             <td className="py-4 px-6">
@@ -920,8 +1100,8 @@ export default function AdminDashboard() {
                                   resv.status === "confirmed"
                                     ? "bg-emerald-950/20 border-emerald-900/50 text-emerald-500"
                                     : resv.status === "cancelled"
-                                    ? "bg-red-950/20 border-red-900/50 text-red-500"
-                                    : "bg-yellow-950/20 border-yellow-900/50 text-yellow-500 animate-pulse"
+                                      ? "bg-red-950/20 border-red-900/50 text-red-500"
+                                      : "bg-yellow-950/20 border-yellow-900/50 text-yellow-500 animate-pulse"
                                 }`}
                               >
                                 {resv.status || "pending"}
@@ -930,7 +1110,12 @@ export default function AdminDashboard() {
                             <td className="py-4 px-6 text-right space-x-2">
                               {resv.status !== "confirmed" && (
                                 <button
-                                  onClick={() => handleUpdateReservationStatus(resv.id || resv.$id, "confirmed")}
+                                  onClick={() =>
+                                    handleUpdateReservationStatus(
+                                      resv.id || resv.$id,
+                                      "confirmed",
+                                    )
+                                  }
                                   className="inline-flex p-1.5 bg-emerald-950 text-emerald-500 hover:bg-emerald-600 hover:text-black border border-emerald-900/50 rounded-lg hover:scale-105 active:scale-95 transition-all cursor-pointer"
                                   title="Confirm Reservation"
                                 >
@@ -939,7 +1124,12 @@ export default function AdminDashboard() {
                               )}
                               {resv.status !== "cancelled" && (
                                 <button
-                                  onClick={() => handleUpdateReservationStatus(resv.id || resv.$id, "cancelled")}
+                                  onClick={() =>
+                                    handleUpdateReservationStatus(
+                                      resv.id || resv.$id,
+                                      "cancelled",
+                                    )
+                                  }
                                   className="inline-flex p-1.5 bg-red-950 text-red-500 hover:bg-red-600 hover:text-white border border-red-900/50 rounded-lg hover:scale-105 active:scale-95 transition-all cursor-pointer"
                                   title="Cancel Reservation"
                                 >
@@ -947,7 +1137,9 @@ export default function AdminDashboard() {
                                 </button>
                               )}
                               <button
-                                onClick={() => handleDeleteReservation(resv.id || resv.$id)}
+                                onClick={() =>
+                                  handleDeleteReservation(resv.id || resv.$id)
+                                }
                                 className="inline-flex p-1.5 bg-neutral-900 text-neutral-400 hover:bg-red-600 hover:text-white border border-neutral-855 rounded-lg hover:scale-105 active:scale-95 transition-all cursor-pointer"
                                 title="Delete Booking"
                               >
@@ -998,10 +1190,14 @@ export default function AdminDashboard() {
                     <input
                       type="checkbox"
                       checked={sendConfirmationEmail}
-                      onChange={(e) => setSendConfirmationEmail(e.target.checked)}
+                      onChange={(e) =>
+                        setSendConfirmationEmail(e.target.checked)
+                      }
                       className="w-4 h-4 accent-gold-500 rounded border-neutral-800 text-black cursor-pointer"
                     />
-                    <span className="text-xs text-neutral-300 ml-2">Enable automatic transactional emails</span>
+                    <span className="text-xs text-neutral-300 ml-2">
+                      Enable automatic transactional emails
+                    </span>
                   </div>
                 </div>
               </div>
@@ -1071,7 +1267,7 @@ export default function AdminDashboard() {
               {/* Form Error Panel */}
               {formError && (
                 <div className="flex items-center gap-2 bg-red-950/20 border border-red-900/50 text-red-500 text-xs py-3 px-4 rounded-xl">
-                  <AlertTriangle className="w-4 h-4 flex-shrink-0" />
+                  <AlertTriangle className="w-4 h-4 shrink-0" />
                   <span>{formError}</span>
                 </div>
               )}
@@ -1208,7 +1404,9 @@ export default function AdminDashboard() {
                       onChange={(e) => setFormFeatured(e.target.checked)}
                       className="w-4 h-4 accent-gold-500 rounded border-neutral-800 text-black cursor-pointer"
                     />
-                    <span className="text-xs text-neutral-300 ml-2 font-medium">Feature in Chef Specials</span>
+                    <span className="text-xs text-neutral-300 ml-2 font-medium">
+                      Feature in Chef Specials
+                    </span>
                   </div>
                 </div>
               </div>
@@ -1223,7 +1421,9 @@ export default function AdminDashboard() {
                     type="text"
                     value={formDietaryInput}
                     onChange={(e) => setFormDietaryInput(e.target.value)}
-                    onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), addDietaryTag())}
+                    onKeyDown={(e) =>
+                      e.key === "Enter" && (e.preventDefault(), addDietaryTag())
+                    }
                     placeholder="Add tag and press Enter"
                     className="flex-1 bg-neutral-900 border border-neutral-800 text-white px-4 py-2.5 rounded-xl focus:outline-none focus:border-gold-500 text-sm"
                   />
@@ -1295,7 +1495,8 @@ export default function AdminDashboard() {
               Guest Choice Spreadsheet
             </h2>
             <p className="text-xs text-neutral-400 font-light mb-6 uppercase tracking-wider">
-              Selected Choices Matrix for {selectedReservation.name}'s Party ({selectedReservation.guests} Guests)
+              Selected Choices Matrix for {selectedReservation.name}&apos;s
+              Party ({selectedReservation.guests} Guests)
             </p>
 
             <div className="border border-neutral-900 rounded-xl overflow-hidden bg-neutral-950">
@@ -1314,22 +1515,34 @@ export default function AdminDashboard() {
                         : selectedReservation.guestOrders
                       : null;
 
-                    if (!guestOrdersParsed || Object.keys(guestOrdersParsed).length === 0) {
+                    if (
+                      !guestOrdersParsed ||
+                      Object.keys(guestOrdersParsed).length === 0
+                    ) {
                       return (
                         <tr>
-                          <td colSpan={2} className="py-4 px-4 text-center text-neutral-500 italic">
+                          <td
+                            colSpan={2}
+                            className="py-4 px-4 text-center text-neutral-500 italic"
+                          >
                             No individual guest orders mapped.
                           </td>
                         </tr>
                       );
                     }
 
-                    return Object.entries(guestOrdersParsed).map(([key, val]: any) => (
-                      <tr key={key} className="hover:bg-neutral-900/10">
-                        <td className="py-3 px-4 text-neutral-300 font-medium">Guest #{Number(key) + 1}</td>
-                        <td className="py-3 px-4 text-gold-500 font-semibold">{val}</td>
-                      </tr>
-                    ));
+                    return Object.entries(guestOrdersParsed).map(
+                      ([key, val]: any) => (
+                        <tr key={key} className="hover:bg-neutral-900/10">
+                          <td className="py-3 px-4 text-neutral-300 font-medium">
+                            Guest #{Number(key) + 1}
+                          </td>
+                          <td className="py-3 px-4 text-gold-500 font-semibold">
+                            {val}
+                          </td>
+                        </tr>
+                      ),
+                    );
                   })()}
                 </tbody>
               </table>

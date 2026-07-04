@@ -1,20 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import {
-  RESERVATION_SLOTS,
-  FALLBACK_MENU,
-  type MenuItem,
-} from "@/lib/constants";
+import { RESERVATION_SLOTS, FALLBACK_MENU } from "@/lib/constants";
 import { reservationSchema, type ReservationInput } from "@/lib/validations";
 import { useSearchParams } from "next/navigation";
-import {
-  Utensils,
-  GlassWater,
-  Receipt,
-  ChevronDown,
-  Check,
-} from "lucide-react";
+import { Utensils, GlassWater, Receipt, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface GuestOrder {
@@ -212,7 +202,7 @@ export function ReservationForm() {
         guestOrders: "",
       });
       setGuestOrders({});
-      
+
       // Clear preorder param from browser URL after successful booking
       if (typeof window !== "undefined") {
         window.history.replaceState(null, "", "/reservations");
@@ -595,7 +585,7 @@ export function ReservationForm() {
                           <span className="text-neutral-350">
                             {match.nameEn} (x{formData.guests})
                           </span>
-                          <div className="border-b border-dotted border-neutral-850 flex-grow h-[1px]" />
+                          <div className="border-b border-dotted border-neutral-850 grow h-px" />
                           <span className="text-white font-mono">
                             {(match.price * formData.guests).toLocaleString()}{" "}
                             XOF
@@ -622,7 +612,7 @@ export function ReservationForm() {
                               <span className="text-neutral-300 text-xs">
                                 {food.nameEn}
                               </span>
-                              <div className="border-b border-dotted border-neutral-850 flex-grow h-[1px]" />
+                              <div className="border-b border-dotted border-neutral-850 grow h-px" />
                               <span className="text-neutral-400 font-mono text-xs">
                                 {food.price.toLocaleString()} XOF
                               </span>
@@ -633,7 +623,7 @@ export function ReservationForm() {
                               <span className="text-neutral-300 text-xs">
                                 {drink.nameEn}
                               </span>
-                              <div className="border-b border-dotted border-neutral-850 flex-grow h-[1px]" />
+                              <div className="border-b border-dotted border-neutral-850 grow h-px" />
                               <span className="text-neutral-400 font-mono text-xs">
                                 {drink.price.toLocaleString()} XOF
                               </span>
