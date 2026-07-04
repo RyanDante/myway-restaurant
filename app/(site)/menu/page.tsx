@@ -1,23 +1,69 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import { type MenuItem } from '@/lib/constants';
-import { GoldDivider } from '@/components/ui/GoldDivider';
-import { SectionLabel } from '@/components/ui/SectionLabel';
+import React, { useEffect, useState } from "react";
+import { type MenuItem } from "@/lib/constants";
+import { MenuHeader } from "@/components/menu/MenuHeader";
+import { MenuControls } from "@/components/menu/MenuControls";
+import { CategoryBar } from "@/components/menu/CategoryBar";
+import { FilterDrawer } from "@/components/menu/FilterDrawer";
+import { MenuList } from "@/components/menu/MenuList";
+import { useTranslation } from "react-i18next";
+import "@/lib/i18n"; // Initialise i18n manager client-side
+
+const categoryLabels: Record<string, { en: string; fr: string }> = {
+  starters: { en: "Starters & Appetizers", fr: "Entrées & Hors-d'œuvres" },
+  salads: { en: "Salads", fr: "Salades" },
+  burgers: { en: "Burgers", fr: "Burgers" },
+  pizzas: { en: "Pizzas", fr: "Pizzas" },
+  pasta_rice: { en: "Pasta & Rice", fr: "Pâtes & Riz" },
+  chicken: { en: "Chicken Dishes", fr: "Plats de Poulet" },
+  beef_lamb: { en: "Beef, Pork & Lamb", fr: "Bœuf, Porc & Agneau" },
+  seafood: { en: "Seafood", fr: "Fruits de Mer" },
+  local: {
+    en: "Local Specialities(cameroonian classics)",
+    fr: "Spécialités Locales(classique du cameroun)",
+  },
+  desserts: { en: "Desserts", fr: "Desserts" },
+  ice_cream: { en: "Ice Cream", fr: "Glaces" },
+  fruit_juice: { en: "Natural Fruit Juice", fr: "Jus de Fruits Naturels" },
+  cocktails_shakes: { en: "Cocktails & Shakes(alcoholic + mocktails)", fr: "Cocktails & Shakes" },
+  wines_champagne: { en: "Wines & Champagne", fr: "Vins & Champagne" },
+  non_alcoholic_beverages: { en: "Non-Alcoholic Beverages", fr: "Boissons Sans Alcool" },
+  beers: { en: "Beers", fr: "Bières" },
+  spirits_liqueurs: { en: "Spirits & Liqueurs", fr: "Spiritueux & Liqueurs" },
+  drinks: { en: "Drinks & Cocktails", fr: "Boissons & Cocktails" },
+};
 
 export default function MenuPage() {
+  const { t, i18n } = useTranslation();
+
   const [menu, setMenu] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeCategory, setActiveCategory] = useState<string>('all');
+  const [currentLang, setCurrentLang] = useState<"en" | "fr">("en");
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [filterOpen, setFilterOpen] = useState(false);
+  const [activeCategory, setActiveCategory] = useState<string>("starters");
+
+  // Filters state
+  const [maxPrice, setMaxPrice] = useState<number>(18000);
+  const [selectedDietary, setSelectedDietary] = useState<string[]>([]);
+
+  // Sync state language with i18n library
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setCurrentLang(i18n.language as "en" | "fr");
+  }, [i18n.language]);
 
   useEffect(() => {
     async function fetchMenu() {
       try {
-        const res = await fetch('/api/menu');
+        const res = await fetch("/api/menu");
         const data = await res.json();
         setMenu(data.data || []);
       } catch (error) {
-        console.error('Failed to load menu:', error);
+        console.error("Failed to load menu:", error);
       } finally {
         setLoading(false);
       }
@@ -25,76 +71,180 @@ export default function MenuPage() {
     fetchMenu();
   }, []);
 
-  const categories = ['all', 'starters', 'mains', 'desserts', 'wines', 'drinks'];
+  // Intersection Observer for scroll spy functionality
+  useEffect(() => {
+    if (loading || menu.length === 0) return;
 
-  const filteredMenu = activeCategory === 'all'
-    ? menu
-    : menu.filter((item) => item.category === activeCategory);
+    const observerOptions = {
+      root: null,
+      rootMargin: "-180px 0px -50% 0px", // Offset for sticky menu header
+      threshold: 0,
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const catId = entry.target.id.replace("category-", "");
+          setActiveCategory(catId);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    const categoriesList = Object.keys(categoryLabels);
+
+    categoriesList.forEach((catId) => {
+      const element = document.getElementById(`category-${catId}`);
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, [loading, menu]);
+
+  // Fuzzy matching check
+  const fuzzyMatch = (text: string, query: string) => {
+    if (!query) return true;
+    const cleanText = text.toLowerCase();
+    const cleanQuery = query.toLowerCase();
+
+    if (cleanText.includes(cleanQuery)) return true;
+
+    let queryIdx = 0;
+    for (let textIdx = 0; textIdx < cleanText.length; textIdx++) {
+      if (cleanText[textIdx] === cleanQuery[queryIdx]) {
+        queryIdx++;
+        if (queryIdx === cleanQuery.length) return true;
+      }
+    }
+    return false;
+  };
+
+  // Autocomplete Suggestions
+  const suggestions = searchQuery
+    ? menu.filter(
+        (item) =>
+          fuzzyMatch(item.nameEn, searchQuery) ||
+          fuzzyMatch(item.nameFr, searchQuery) ||
+          fuzzyMatch(item.descriptionEn, searchQuery) ||
+          fuzzyMatch(item.descriptionFr, searchQuery),
+      )
+    : [];
+
+  const handleSuggestionClick = (item: MenuItem) => {
+    setSearchQuery(currentLang === "en" ? item.nameEn : item.nameFr);
+    setShowSuggestions(false);
+  };
+
+  // Filter Menu catalog list
+  const filteredMenu = menu.filter((item) => {
+    const nameMatch = currentLang === "en" ? item.nameEn : item.nameFr;
+    const descMatch =
+      currentLang === "en" ? item.descriptionEn : item.descriptionFr;
+    const textMatch =
+      fuzzyMatch(nameMatch, searchQuery) || fuzzyMatch(descMatch, searchQuery);
+
+    const priceMatch = item.price <= maxPrice;
+
+    const dietaryMatch =
+      selectedDietary.length === 0 ||
+      (item.dietary &&
+        selectedDietary.every((tag) => item.dietary?.includes(tag)));
+
+    return textMatch && priceMatch && dietaryMatch;
+  });
+
+  const toggleDietaryFilter = (tag: string) => {
+    setSelectedDietary((prev) =>
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
+    );
+  };
+
+  const handleCategoryScroll = (catId: string) => {
+    const element = document.getElementById(`category-${catId}`);
+    if (element) {
+      const offset = 160; // Offset spacing for sticky headers
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = element.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  const categories = Object.keys(categoryLabels);
 
   return (
-    <div className="py-24 px-6 max-w-7xl mx-auto w-full">
-      {/* Title */}
-      <div className="text-center mb-16">
-        <SectionLabel>Gastronomy</SectionLabel>
-        <h1 className="text-4xl font-bold uppercase tracking-wider text-white">
-          Our Culinary Selection
-        </h1>
-        <GoldDivider variant="diamond" className="max-w-md mx-auto" />
-      </div>
+    <div className="min-h-screen bg-black text-white relative pt-24 pb-16">
+      {/* Sticky Header Nav Controls */}
+      <div className="sticky top-[72px] z-30 w-full bg-black/95 border-b border-neutral-900 backdrop-blur-md py-4 shadow-2xl">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            {/* Logo and Language switcher */}
+            <MenuHeader
+              onLanguageChange={(newLang) => setCurrentLang(newLang)}
+            />
 
-      {/* Filters */}
-      <div className="flex flex-wrap justify-center gap-4 mb-12">
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setActiveCategory(cat)}
-            className={`px-5 py-2 text-xs font-semibold tracking-widest uppercase transition-all duration-300 border ${
-              activeCategory === cat
-                ? 'bg-gold-500 border-gold-500 text-black'
-                : 'border-neutral-800 text-neutral-400 hover:border-neutral-600 hover:text-white'
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
+            {/* Layout view controls and Search inputs */}
+            <MenuControls
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              showSuggestions={showSuggestions}
+              setShowSuggestions={setShowSuggestions}
+              suggestions={suggestions}
+              handleSuggestionClick={handleSuggestionClick}
+              viewMode={viewMode}
+              setViewMode={setViewMode}
+              setFilterOpen={setFilterOpen}
+              currentLang={currentLang}
+            />
+          </div>
 
-      {/* Menu List */}
-      {loading ? (
-        <div className="text-center text-neutral-500 text-sm">Loading delicacies...</div>
-      ) : filteredMenu.length === 0 ? (
-        <div className="text-center text-neutral-500 text-sm">No items found.</div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {filteredMenu.map((item) => (
-            <div
-              key={item.id}
-              className="flex justify-between items-start gap-4 pb-6 border-b border-neutral-900"
-            >
-              <div className="flex-1">
-                <div className="flex items-baseline justify-between mb-1">
-                  <h3 className="text-base font-bold text-white tracking-wide">{item.name}</h3>
-                  <div className="border-b border-dotted border-neutral-800 flex-1 mx-4 h-[1px]"></div>
-                  <span className="text-base font-semibold text-gold-500">${item.price}</span>
-                </div>
-                <p className="text-xs text-neutral-400 font-light pr-8">{item.description}</p>
-                {item.dietary && item.dietary.length > 0 && (
-                  <div className="flex gap-2 mt-2">
-                    {item.dietary.map((diet) => (
-                      <span
-                        key={diet}
-                        className="text-[10px] bg-neutral-900 border border-neutral-800 text-gold-500/80 px-2 py-0.5"
-                      >
-                        {diet}
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-          ))}
+          {/* Horizontal food Category scroll Bar */}
+          <CategoryBar
+            categories={categories}
+            categoryLabels={categoryLabels}
+            currentLang={currentLang}
+            activeCategory={activeCategory}
+            onCategoryClick={handleCategoryScroll}
+          />
         </div>
-      )}
+      </div>
+
+      {/* Main List Body */}
+      <div className="max-w-7xl mx-auto px-6 mt-12 w-full">
+        {loading ? (
+          <div className="text-center py-20 text-neutral-500 text-sm tracking-widest uppercase">
+            {t("menu.loading")}
+          </div>
+        ) : (
+          <MenuList
+            filteredMenu={filteredMenu}
+            categories={categories}
+            categoryLabels={categoryLabels}
+            currentLang={currentLang}
+            viewMode={viewMode}
+            noItemsText={t("menu.noItems")}
+          />
+        )}
+      </div>
+
+      {/* Slide-out Filters Drawer Panel */}
+      <FilterDrawer
+        filterOpen={filterOpen}
+        setFilterOpen={setFilterOpen}
+        maxPrice={maxPrice}
+        setMaxPrice={setMaxPrice}
+        selectedDietary={selectedDietary}
+        toggleDietaryFilter={toggleDietaryFilter}
+        clearAllFilters={() => {
+          setMaxPrice(18000);
+          setSelectedDietary([]);
+        }}
+      />
     </div>
   );
 }

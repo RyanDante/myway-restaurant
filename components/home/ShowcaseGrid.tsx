@@ -63,7 +63,7 @@ export function ShowcaseGrid() {
               className="object-cover transition-transform duration-700 hover:scale-110"
             />
             {/* Dark gradient overlay for luxury feel */}
-            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-60 z-[1]" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-60 z-1" />
           </div>
         ))}
       </div>

@@ -165,8 +165,8 @@ export function Testimonials() {
         {/* Desktop View: Infinite Marquee Row */}
         <div className="reviews-marquee-container hidden md:block overflow-hidden w-full relative py-4">
           {/* Gradient Masks */}
-          <div className="absolute left-0 top-0 bottom-0 w-40 bg-gradient-to-r from-neutral-950 via-neutral-950/80 to-transparent z-20 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-40 bg-gradient-to-l from-neutral-950 via-neutral-950/80 to-transparent z-20 pointer-events-none" />
+          <div className="absolute left-0 top-0 bottom-0 w-40 bg-linear-to-r from-neutral-950 via-neutral-950/80 to-transparent z-20 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-40 bg-linear-to-l from-neutral-950 via-neutral-950/80 to-transparent z-20 pointer-events-none" />
 
           <div className="animate-marquee flex gap-8">
             {/* Repeat reviews to fill space and enable seamless sliding */}

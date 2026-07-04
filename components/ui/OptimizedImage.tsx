@@ -44,6 +44,7 @@ export function OptimizedImage({
         )}
         onLoad={() => setIsLoaded(true)}
         onError={() => setHasError(true)}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         {...(!(props as any).priority && { loading: "lazy" })}
         {...props}
       />

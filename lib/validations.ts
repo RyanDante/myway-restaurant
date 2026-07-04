@@ -8,6 +8,9 @@ export const reservationSchema = z.object({
   date: z.string().min(1, 'Please select a date'),
   time: z.string().min(1, 'Please select a time slot'),
   specialRequests: z.string().optional(),
+  preorderedFood: z.string().optional(),
+  preorderType: z.string().optional(), // 'none' | 'same' | 'different'
+  guestOrders: z.string().optional(),  // JSON stringified array of guest items
 });
 
 export type ReservationInput = z.infer<typeof reservationSchema>;

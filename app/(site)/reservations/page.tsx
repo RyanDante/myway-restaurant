@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { ReservationForm } from '@/components/forms/ReservationForm';
 import { GoldDivider } from '@/components/ui/GoldDivider';
 import { SectionLabel } from '@/components/ui/SectionLabel';
@@ -18,7 +18,9 @@ export default function ReservationsPage() {
         </p>
       </div>
 
-      <ReservationForm />
+      <Suspense fallback={<div className="text-center text-neutral-500 text-xs py-10 uppercase tracking-widest">Loading Booking Details...</div>}>
+        <ReservationForm />
+      </Suspense>
     </div>
   );
 }

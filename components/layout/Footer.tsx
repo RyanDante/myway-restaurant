@@ -88,6 +88,9 @@ export function Footer() {
           <Link href="/terms" className="hover:text-neutral-300">
             Terms of Service
           </Link>
+          <Link href="/accessibility" className="hover:text-neutral-300">
+            Accessibility
+          </Link>
         </div>
       </div>
     </footer>
